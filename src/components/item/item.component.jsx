@@ -1,7 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
+
+import { addItem } from '../../redux/item/item.actions'
 
 import './item.styles.scss'
 
@@ -11,12 +14,13 @@ class Item extends React.Component {
 
 		this.state = {
 			name: '',
-			EAN: '',
+			ean: '',
 			type: '',
 			weight: '',
 			color: '',
 			quantity: '',
-			price: ''
+			price: '',
+			active: ''
 		}
 	}
 
@@ -25,12 +29,13 @@ class Item extends React.Component {
 
 		this.setState({
 			name: '',
-			EAN: '',
+			ean: '',
 			type: '',
 			weight: '',
 			color: '',
 			quantity: '',
-			price: ''
+			price: '',
+			active: ''
 		})
 	}
 
@@ -41,6 +46,7 @@ class Item extends React.Component {
 	}
 
 	render() {
+		const item = this.state
 		return (
 			<div className="item-box">
 				<form onSubmit={this.handleSubmit}>
@@ -49,15 +55,15 @@ class Item extends React.Component {
 						type="text"
 						value={this.state.name}
 						handleChange={this.handleChange}
-						label="Name"
+						label="name"
 						required
 					/>
 					<FormInput
-						name="EAN"
+						name="ean"
 						type="number"
-						value={this.state.EAN}
+						value={this.state.ean}
 						handleChange={this.handleChange}
-						label="EAN"
+						label="ean"
 						required
 					/>
 					<FormInput
@@ -65,7 +71,7 @@ class Item extends React.Component {
 						type="text"
 						value={this.state.type}
 						handleChange={this.handleChange}
-						label="Type"
+						label="type"
 						required
 					/>
 					<FormInput
@@ -73,7 +79,7 @@ class Item extends React.Component {
 						type="number"
 						value={this.state.weight}
 						handleChange={this.handleChange}
-						label="Weight"
+						label="weight"
 						required
 					/>
 					<FormInput
@@ -81,7 +87,7 @@ class Item extends React.Component {
 						type="text"
 						value={this.state.color}
 						handleChange={this.handleChange}
-						label="Color"
+						label="color"
 						required
 					/>
 					<FormInput
@@ -89,7 +95,7 @@ class Item extends React.Component {
 						type="number"
 						value={this.state.quantity}
 						handleChange={this.handleChange}
-						label="Quantity"
+						label="quantity"
 						required
 					/>
 					<FormInput
@@ -97,11 +103,11 @@ class Item extends React.Component {
 						type="number"
 						value={this.state.price}
 						handleChange={this.handleChange}
-						label="Price"
+						label="price"
 						required
 					/>
 
-					<CustomButton type="submit" value="Submit Data">
+					<CustomButton type="submit" onClick={() => addItem(item)}>
 						Submit
 					</CustomButton>
 				</form>
@@ -110,4 +116,14 @@ class Item extends React.Component {
 	}
 }
 
-export default Item
+// const mapDispatchToProps = dispatch => ({
+// 	addItem: item => dispatch(addItem(item))
+// })
+const mapDispatchToProps = state => ({
+	addItem: state.item.items
+})
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(Item)
