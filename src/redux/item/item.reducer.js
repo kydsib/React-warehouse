@@ -16,11 +16,11 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				items: [...state.items, action.payload]
-				// pasiziureti ar nera nereikalingu rerenderinimu
 			}
 		default:
 			return state
 	}
 }
+console.log(INITIAL_STATE)
 
 export default itemReducer

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import uniqid from 'uniqid'
 
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
@@ -20,7 +21,8 @@ class Item extends React.Component {
 			color: '',
 			quantity: '',
 			price: '',
-			active: ''
+			active: '',
+			id: ''
 		}
 	}
 
@@ -35,18 +37,20 @@ class Item extends React.Component {
 			color: '',
 			quantity: '',
 			price: '',
-			active: ''
+			id: uniqid()
 		})
 	}
 
 	handleChange = e => {
 		const { value, name } = e.target
+		console.log(this.state)
 
 		this.setState({ [name]: value })
 	}
 
 	render() {
 		const item = this.state
+		console.log(item)
 		return (
 			<div className="item-box">
 				<form onSubmit={this.handleSubmit}>
@@ -116,11 +120,8 @@ class Item extends React.Component {
 	}
 }
 
-// const mapDispatchToProps = dispatch => ({
-// 	addItem: item => dispatch(addItem(item))
-// })
-const mapDispatchToProps = state => ({
-	addItem: state.item.items
+const mapDispatchToProps = dispatch => ({
+	addItem: item => dispatch(addItem(item))
 })
 
 export default connect(
