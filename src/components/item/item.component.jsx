@@ -5,7 +5,7 @@ import uniqid from 'uniqid'
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
 
-import { addItem } from '../../redux/item/item.actions'
+import ItemActionTypes from '../../redux/item/item.types'
 
 import './item.styles.scss'
 
@@ -37,20 +37,19 @@ class Item extends React.Component {
 			color: '',
 			quantity: '',
 			price: '',
-			id: uniqid()
+			active: '',
+			id: ''
 		})
 	}
 
 	handleChange = e => {
+		e.preventDefault()
 		const { value, name } = e.target
-		console.log(this.state)
 
-		this.setState({ [name]: value })
+		this.setState({ [name]: value, id: uniqid() })
 	}
 
 	render() {
-		const item = this.state
-		console.log(item)
 		return (
 			<div className="item-box">
 				<form onSubmit={this.handleSubmit}>
@@ -111,7 +110,10 @@ class Item extends React.Component {
 						required
 					/>
 
-					<CustomButton type="submit" onClick={() => addItem(item)}>
+					<CustomButton
+						type="submit"
+						onClick={() => this.props.onAddItem(this.state)}
+					>
 						Submit
 					</CustomButton>
 				</form>
@@ -121,10 +123,8 @@ class Item extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-	addItem: item => dispatch(addItem(item))
+	onAddItem: item =>
+		dispatch({ type: ItemActionTypes.ADD_NEW_ITEM, payload: item })
 })
 
-export default connect(
-	null,
-	mapDispatchToProps
-)(Item)
+export default connect(null, mapDispatchToProps)(Item)

@@ -13,14 +13,15 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				active: !state.active
 			}
 		case ItemActionTypes.ADD_NEW_ITEM:
+			const newItems = [...INITIAL_STATE.items]
+			let addItem = newItems.push(action.payload)
 			return {
 				...state,
-				items: [...state.items, action.payload]
+				items: newItems
 			}
 		default:
 			return state
 	}
 }
-console.log(INITIAL_STATE)
 
 export default itemReducer
