@@ -13,11 +13,9 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				active: !state.active
 			}
 		case ItemActionTypes.ADD_NEW_ITEM:
-			const newItems = [...INITIAL_STATE.items]
-			let addItem = newItems.push(action.payload)
 			return {
 				...state,
-				items: newItems
+				items: state.items.concat(action.payload)
 			}
 		default:
 			return state
