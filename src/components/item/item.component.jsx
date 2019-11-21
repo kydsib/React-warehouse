@@ -46,7 +46,7 @@ class Item extends React.Component {
 		e.preventDefault()
 		const { value, name } = e.target
 
-		this.setState({ [name]: value, id: uniqid() })
+		this.setState({ [name]: value, id: uniqid(), active: true })
 	}
 
 	render() {
