@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import ItemActionTypes from '../../redux/item/item.types'
 import './items-list.styles.scss'
@@ -12,9 +13,11 @@ class ListPage extends React.Component {
 		return (
 			<div>
 				{this.props.itemsFromStore.map(item => (
+					// <Link key={item.id} to={`/products/${item.id}`}>
 					<ListItem
 						className="list-item"
 						key={item.id}
+						id={item.id}
 						name={item.name}
 						ean={item.ean}
 						type={item.type}
@@ -25,6 +28,7 @@ class ListPage extends React.Component {
 						active={item.active}
 						onClick={() => this.props.enableDisable(item.id)}
 					/>
+					// </Link>
 				))}
 			</div>
 		)
