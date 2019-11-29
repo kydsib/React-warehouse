@@ -14,21 +14,21 @@ const ListItem = ({
 	quantity,
 	price,
 	active,
-	onClick
+	onClick,
+	deleteItem
 }) => {
 	return (
 		<div className="item">
 			<ul key={id}>
-				<Link key={id} to={`/products/${id}`}>
-					<li>Name: {name}</li>
+				<li>Name: {name}</li>
 
-					<li>EAN: {ean}</li>
-					<li>TYPE:{type}</li>
-					<li>WEIGHT: {weight}</li>
-					<li>COLOR: {color}</li>
-					<li>:QUANTITY: {quantity}</li>
-					<li>:PRICE {price}</li>
-				</Link>
+				<li>EAN: {ean}</li>
+				<li>TYPE:{type}</li>
+				<li>WEIGHT: {weight}</li>
+				<li>COLOR: {color}</li>
+				<li>:QUANTITY: {quantity}</li>
+				<li>:PRICE {price}</li>
+
 				<label>
 					Deactivate
 					<input
@@ -39,9 +39,15 @@ const ListItem = ({
 					/>
 				</label>
 			</ul>
-			<CustomButton>VIEW</CustomButton>
-			<CustomButton>EDIT</CustomButton>
-			<CustomButton>DELETE</CustomButton>
+			<Link to={`/products/${id}`}>
+				<CustomButton>VIEW</CustomButton>
+			</Link>
+			<Link to={`/products/${id}/edit`}>
+				<CustomButton>EDIT</CustomButton>
+			</Link>
+			<Link to={`/products`}>
+				<CustomButton onClick={deleteItem}>DELETE</CustomButton>
+			</Link>
 		</div>
 	)
 }

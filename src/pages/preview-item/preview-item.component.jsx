@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import './preview-item.styles.scss'
+import ItemActionTypes from '../../redux/item/item.types'
 import ListItem from '../../components/list-item/list-item.component'
 
 class ItemDetail extends React.Component {
@@ -22,6 +23,7 @@ class ItemDetail extends React.Component {
 					price={singleItem.price}
 					active={singleItem.active}
 					onClick={() => this.props.enableDisable(singleItem.id)}
+					deleteItem={() => this.props.deleteItemById(singleItem.id)}
 				/>
 			</div>
 		)
@@ -36,4 +38,14 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(mapStateToProps)(ItemDetail)
+const mapDispatchToProps = dispatch => {
+	return {
+		enableDisable: id =>
+			dispatch({ type: ItemActionTypes.TOGGLE_ITEM_ACTIVE, payload: id }),
+		deleteItemById: id => {
+			dispatch({ type: ItemActionTypes.DELETE_ITEM, payload: id })
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemDetail)

@@ -25,6 +25,7 @@ class ListPage extends React.Component {
 						price={item.price}
 						active={item.active}
 						onClick={() => this.props.enableDisable(item.id)}
+						deleteItem={() => this.props.deleteItemById(item.id)}
 					/>
 				))}
 			</div>
@@ -35,14 +36,17 @@ class ListPage extends React.Component {
 const mapStateToProps = state => {
 	return {
 		itemsFromStore: state.itms.items
-		// state.itms - because root reducer (combined reducers)
+		// state.itms.items - because root reducer (combined reducers)
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
 		enableDisable: id =>
-			dispatch({ type: ItemActionTypes.TOGGLE_ITEM_ACTIVE, payload: id })
+			dispatch({ type: ItemActionTypes.TOGGLE_ITEM_ACTIVE, payload: id }),
+		deleteItemById: id => {
+			dispatch({ type: ItemActionTypes.DELETE_ITEM, payload: id })
+		}
 	}
 }
 

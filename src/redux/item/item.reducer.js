@@ -21,6 +21,14 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				items: state.items.concat(action.payload)
 			}
+		case ItemActionTypes.DELETE_ITEM:
+			const itemToDelete = state.items.filter(
+				item => item.id !== action.payload
+			)
+			return {
+				...state,
+				items: itemToDelete
+			}
 		default:
 			return state
 	}
