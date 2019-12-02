@@ -21,8 +21,6 @@ class ListPage extends React.Component {
 						type={item.type}
 						weight={item.weight}
 						color={item.color}
-						quantity={item.quantity}
-						price={item.price}
 						active={item.active}
 						onClick={() => this.props.enableDisable(item.id)}
 						deleteItem={() => this.props.deleteItemById(item.id)}

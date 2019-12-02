@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import CustomButton from '../custom-button/custom-button.component'
+import Input from '../input-component/input.component'
 import './list-item.styles.scss'
 
 const ListItem = ({
@@ -26,9 +27,12 @@ const ListItem = ({
 				<li>TYPE:{type}</li>
 				<li>WEIGHT: {weight}</li>
 				<li>COLOR: {color}</li>
-				<li>:QUANTITY: {quantity}</li>
-				<li>:PRICE {price}</li>
-
+				{price === undefined ? null : (
+					<Input id={id} value={quantity} name="Quantity" />
+				)}
+				{quantity === undefined ? null : (
+					<Input id={id} value={price} name="Price" />
+				)}
 				<label>
 					Deactivate
 					<input

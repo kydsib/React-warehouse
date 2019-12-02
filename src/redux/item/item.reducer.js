@@ -29,6 +29,15 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				items: itemToDelete
 			}
+		// case ItemActionTypes.UPDATE_VALUES:
+		// 	const itemToUpdate = state.items.filter(
+		// 		item => item.id === action.payload.id
+		// 	)
+		// 	itemToUpdate.value = action.payload
+		// 	return {
+		// 		...state,
+		// 		value:
+		// 	}
 		default:
 			return state
 	}

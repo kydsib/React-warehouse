@@ -9,9 +9,6 @@ const Header = () => (
 			<NavLink className="option" to="/products">
 				LIST
 			</NavLink>
-			<NavLink className="option" to="/products/{id}">
-				PREVIEW
-			</NavLink>
 			<NavLink className="option" to="/products/create">
 				NEW
 			</NavLink>

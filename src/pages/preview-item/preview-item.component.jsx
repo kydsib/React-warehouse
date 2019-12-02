@@ -4,13 +4,18 @@ import { connect } from 'react-redux'
 import './preview-item.styles.scss'
 import ItemActionTypes from '../../redux/item/item.types'
 import ListItem from '../../components/list-item/list-item.component'
+import PreviewNav from '../../components/preview-nav/preview-nav.component'
 
 class ItemDetail extends React.Component {
 	render() {
 		const singleItem = this.props.singleItemById
+		// Using slice of the total state (single item)
 		console.log(singleItem)
 		return (
 			<div>
+				<div className="nav">
+					<PreviewNav id={singleItem.id} />
+				</div>
 				<ListItem
 					key={singleItem.id}
 					id={singleItem.id}

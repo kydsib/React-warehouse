@@ -8,6 +8,8 @@ import ListPage from './pages/items-list/items-list.component'
 import NewItemPage from './pages/new-item/new-item.component'
 import ItemDetail from './pages/preview-item/preview-item.component'
 // import EditPage from  './pages/edit-item/edit-page.component'
+import PriceHistory from './pages/preview-item/price-history/price-history.component'
+import QuantityHistory from './pages/preview-item/quantity-history/quantity-history.component'
 
 function App() {
 	return (
@@ -20,6 +22,18 @@ function App() {
 						exact
 						component={NewItemPage}
 					/>
+					{/* WORKING ON NESTED ROUTES */}
+					<Route
+						path="/products/:id/quantityHistory"
+						exact
+						component={QuantityHistory}
+					/>
+					<Route
+						path="/products/:id/priceHistory"
+						exact
+						component={PriceHistory}
+					/>
+					{/* END OF NESTED ROUTES */}
 					<Route path="/products/:id" exact component={ItemDetail} />
 
 					<Route path="/products" exact component={ListPage} />
