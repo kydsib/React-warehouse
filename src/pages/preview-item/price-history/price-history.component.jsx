@@ -3,9 +3,9 @@ import PreviewNav from '../../../components/preview-nav/preview-nav.component'
 
 import './price-history.styles.scss'
 
-const PriceHistory = props => (
+const PriceHistory = ({ match }) => (
 	<div>
-		<PreviewNav />
+		<PreviewNav id={match.params.id} />
 		Hi from Price History
 	</div>
 )

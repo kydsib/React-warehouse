@@ -22,7 +22,7 @@ function App() {
 						exact
 						component={NewItemPage}
 					/>
-					{/* WORKING ON NESTED ROUTES */}
+
 					<Route
 						path="/products/:id/quantityHistory"
 						exact
@@ -33,7 +33,7 @@ function App() {
 						exact
 						component={PriceHistory}
 					/>
-					{/* END OF NESTED ROUTES */}
+
 					<Route path="/products/:id" exact component={ItemDetail} />
 
 					<Route path="/products" exact component={ListPage} />

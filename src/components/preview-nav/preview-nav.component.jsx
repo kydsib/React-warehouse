@@ -5,7 +5,7 @@ import './preview-nav.styles.scss'
 
 const PreviewNav = ({ id }) => (
 	<div>
-		<div className="options">
+		<div key={id} className="options">
 			<NavLink className="option" to={`/products/${id}`}>
 				Preview
 			</NavLink>
