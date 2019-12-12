@@ -16,6 +16,9 @@ class ItemDetail extends React.Component {
 					<PreviewNav id={singleItem.id} />
 				</div>
 				<ListItem
+					className={`product ${
+						singleItem.quantity > 0 ? '' : 'empty-stock'
+					}`}
 					key={singleItem.id}
 					id={singleItem.id}
 					name={singleItem.name}

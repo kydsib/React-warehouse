@@ -18,12 +18,18 @@ const ListItem = ({
 	active,
 	onClick,
 	deleteItem,
-	inputUpdate
+	inputUpdate,
+	className
 }) => {
 	return (
-		<div className={`product ${quantity > 0 ? '' : 'empty-stock'}`}>
+		<div>
 			{/* className={`${quantity === 0 ? 'empty-stock' : 'in-stock'}`} */}
-			<ul key={id}>
+			<ul
+				className={className}
+				// EXPERIMENTING W/ TAKING EVERYTHING TO ItemDetail (preview-item)
+				// className={`product ${quantity > 0 ? '' : 'empty-stock'}`}
+				// key={id}
+			>
 				<li>Name: {name}</li>
 
 				<li>EAN: {ean}</li>
