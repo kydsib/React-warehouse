@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import CustomButton from '../custom-button/custom-button.component'
 import Input from '../input-component/input.component'
@@ -16,10 +17,12 @@ const ListItem = ({
 	price,
 	active,
 	onClick,
-	deleteItem
+	deleteItem,
+	inputUpdate
 }) => {
 	return (
-		<div className="item">
+		<div className={`product ${quantity > 0 ? '' : 'empty-stock'}`}>
+			{/* className={`${quantity === 0 ? 'empty-stock' : 'in-stock'}`} */}
 			<ul key={id}>
 				<li>Name: {name}</li>
 
@@ -27,11 +30,22 @@ const ListItem = ({
 				<li>TYPE:{type}</li>
 				<li>WEIGHT: {weight}</li>
 				<li>COLOR: {color}</li>
+				{/* Checking if price and qty needs to be rendered on specific page */}
 				{price === undefined ? null : (
-					<Input id={id} value={quantity} name="Quantity" />
+					<Input
+						id={id}
+						value={price}
+						onBlur={inputUpdate}
+						name="Price"
+					/>
 				)}
 				{quantity === undefined ? null : (
-					<Input id={id} value={price} name="Price" />
+					<Input
+						id={id}
+						value={quantity}
+						onBlur={inputUpdate}
+						name="Quantity"
+					/>
 				)}
 				<label>
 					Deactivate
@@ -55,5 +69,16 @@ const ListItem = ({
 		</div>
 	)
 }
+
+// const mapDispatchToProps = dispatch => {
+// 		updateInputValue: item => {
+// 			dispatch({
+// 				type: ItemActionTypes.UPDATE_INPUT_VALUE,
+// 				payload: item
+// 			})
+// 		}
+// }
+
+// export default connect(null, mapDispatchToProps)(ListItem)
 
 export default ListItem

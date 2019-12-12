@@ -29,15 +29,26 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				items: itemToDelete
 			}
-		// case ItemActionTypes.UPDATE_VALUES:
+		// case ItemActionTypes.UPDATE_INPUT_VALUE:
 		// 	const itemToUpdate = state.items.filter(
 		// 		item => item.id === action.payload.id
 		// 	)
 		// 	itemToUpdate.value = action.payload
 		// 	return {
 		// 		...state,
-		// 		value:
+		// 		qty: itemToUpdate.qty,
+		// 		price: itemToUpdate.price
 		// 	}
+		case ItemActionTypes.UPDATE_INPUT_VALUE:
+			const itemToUpdate = state.items.filter(
+				item => item.id === action.payload.id
+			)
+			// GRIZTI PRIE STATE KELIMO I TEVINI IR VIDO ITEMO SIUNTImo
+			return {
+				...state,
+				qty: itemToUpdate.qty,
+				price: itemToUpdate.price
+			}
 		default:
 			return state
 	}

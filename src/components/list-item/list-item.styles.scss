@@ -1,0 +1,18 @@
+// .empty-stock {
+// 	background-color: red;
+// 	color: salmon;
+// }
+
+// .in-stock {
+// 	background-color: aquamarine;
+// 	color: blueviolet;
+// }
+
+.product {
+	.product-body {
+		background-color: white;
+	}
+	&.empty-stock {
+		background-color: salmon;
+	}
+}

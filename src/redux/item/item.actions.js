@@ -15,7 +15,7 @@ export const deleteOne = id => ({
 	payload: id
 })
 
-export const updateValues = data => ({
-	type: ItemActionTypes.UPDATE_VALUES,
+export const updateValue = data => ({
+	type: ItemActionTypes.UPDATE_INPUT_VALUE,
 	payload: data
 })

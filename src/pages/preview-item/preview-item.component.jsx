@@ -10,7 +10,6 @@ class ItemDetail extends React.Component {
 	render() {
 		const singleItem = this.props.singleItemById
 		// Using slice of the total state (single item)
-		console.log(singleItem)
 		return (
 			<div>
 				<div className="nav">
@@ -29,6 +28,7 @@ class ItemDetail extends React.Component {
 					active={singleItem.active}
 					onClick={() => this.props.enableDisable(singleItem.id)}
 					deleteItem={() => this.props.deleteItemById(singleItem.id)}
+					inputUpdate={() => this.props.updateInputValue(singleItem)}
 				/>
 			</div>
 		)
@@ -49,6 +49,12 @@ const mapDispatchToProps = dispatch => {
 			dispatch({ type: ItemActionTypes.TOGGLE_ITEM_ACTIVE, payload: id }),
 		deleteItemById: id => {
 			dispatch({ type: ItemActionTypes.DELETE_ITEM, payload: id })
+		},
+		updateInputValue: item => {
+			dispatch({
+				type: ItemActionTypes.UPDATE_INPUT_VALUE,
+				payload: item
+			})
 		}
 	}
 }

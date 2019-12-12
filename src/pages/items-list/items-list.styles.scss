@@ -1,5 +1,8 @@
-.list-item {
-	display: flex;
-	flex-direction: row;
-	list-style: none;
+.product {
+	.product-body {
+		background-color: white;
+	}
+	&.empty-stock {
+		background-color: salmon;
+	}
 }

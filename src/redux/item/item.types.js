@@ -3,7 +3,7 @@ const ItemActionTypes = {
 	ADD_NEW_ITEM: 'ADD_NEW_ITEM',
 	ITEM_BY_ID: 'ITEM_BY_ID',
 	DELETE_ITEM: 'DELETE_ITEM',
-	UPDATE_VALUES: 'UPDATE_VALUES'
+	UPDATE_INPUT_VALUE: 'UPDATE_INPUT_VALUE'
 }
 
 export default ItemActionTypes

@@ -13,7 +13,10 @@ class ListPage extends React.Component {
 			<div>
 				{this.props.itemsFromStore.map(item => (
 					<ListItem
-						className="list-item"
+						// className={`product ${
+						// 	item.quantity > 0 ? '' : 'empty-stock'
+						// }`}
+						quantity={item.quantity}
 						key={item.id}
 						id={item.id}
 						name={item.name}

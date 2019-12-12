@@ -1,7 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import ItemActionTypes from '../../redux/item/item.types'
-import { id } from 'postcss-selector-parser'
 
 class Input extends React.Component {
 	constructor(props) {
@@ -27,16 +24,11 @@ class Input extends React.Component {
 					type="text"
 					onChange={this.handleChange}
 					value={this.state.value}
-					onBlur={() => this.props.changeValue(this.state)}
+					onBlur={this.props.onBlur}
 				/>
 			</label>
 		)
 	}
 }
 
-const mapDispatchToProps = dispatch => ({
-	changeValue: data =>
-		dispatch({ type: ItemActionTypes.UPDATE_VALUES, payload: data })
-})
-
-export default connect(null, mapDispatchToProps)(Input)
+export default Input
