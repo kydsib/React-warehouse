@@ -21,15 +21,10 @@ const ListItem = ({
 	inputUpdate,
 	className
 }) => {
+	// const [qty, setQty] = useState
 	return (
 		<div>
-			{/* className={`${quantity === 0 ? 'empty-stock' : 'in-stock'}`} */}
-			<ul
-				className={className}
-				// EXPERIMENTING W/ TAKING EVERYTHING TO ItemDetail (preview-item)
-				// className={`product ${quantity > 0 ? '' : 'empty-stock'}`}
-				// key={id}
-			>
+			<ul className={className}>
 				<li>Name: {name}</li>
 
 				<li>EAN: {ean}</li>
