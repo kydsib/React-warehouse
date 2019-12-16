@@ -41,13 +41,14 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 		// 	}
 		case ItemActionTypes.UPDATE_INPUT_VALUE:
 			const itemToUpdate = state.items.filter(
-				item => item.id === action.payload.id
+				item => item.id !== action.payload.id
 			)
+			const updatedState = itemToUpdate.concat(action.payload)
+
 			// GRIZTI PRIE STATE KELIMO I TEVINI IR VIDO ITEMO SIUNTImo
 			return {
 				...state,
-				qty: itemToUpdate.qty,
-				price: itemToUpdate.price
+				items: updatedState
 			}
 		default:
 			return state

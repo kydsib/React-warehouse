@@ -31,7 +31,6 @@ class ItemDetail extends React.Component {
 					active={singleItem.active}
 					onClick={() => this.props.enableDisable(singleItem.id)}
 					deleteItem={() => this.props.deleteItemById(singleItem.id)}
-					inputUpdate={() => this.props.updateInputValue(singleItem)}
 				/>
 			</div>
 		)
@@ -52,12 +51,6 @@ const mapDispatchToProps = dispatch => {
 			dispatch({ type: ItemActionTypes.TOGGLE_ITEM_ACTIVE, payload: id }),
 		deleteItemById: id => {
 			dispatch({ type: ItemActionTypes.DELETE_ITEM, payload: id })
-		},
-		updateInputValue: item => {
-			dispatch({
-				type: ItemActionTypes.UPDATE_INPUT_VALUE,
-				payload: item
-			})
 		}
 	}
 }
