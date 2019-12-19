@@ -1,7 +1,9 @@
 import ItemActionTypes from './item.types'
 
 const INITIAL_STATE = {
-	items: []
+	items: [],
+	quantityChanges: [],
+	priceChanges: []
 }
 
 const itemReducer = (state = INITIAL_STATE, action) => {
@@ -29,26 +31,26 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				items: itemToDelete
 			}
-		// case ItemActionTypes.UPDATE_INPUT_VALUE:
-		// 	const itemToUpdate = state.items.filter(
-		// 		item => item.id === action.payload.id
-		// 	)
-		// 	itemToUpdate.value = action.payload
-		// 	return {
-		// 		...state,
-		// 		qty: itemToUpdate.qty,
-		// 		price: itemToUpdate.price
-		// 	}
+
 		case ItemActionTypes.UPDATE_INPUT_VALUE:
 			const itemToUpdate = state.items.filter(
 				item => item.id !== action.payload.id
 			)
-			const updatedState = itemToUpdate.concat(action.payload)
 
-			// GRIZTI PRIE STATE KELIMO I TEVINI IR VIDO ITEMO SIUNTImo
+			const updatedState = itemToUpdate.concat(action.payload)
 			return {
 				...state,
 				items: updatedState
+			}
+		case ItemActionTypes.UPDATE_QUANTITY_HISTORY:
+			return {
+				...state,
+				quantityChanges: state.quantityChanges.concat(action.payload)
+			}
+		case ItemActionTypes.UPDATE_PRICE_HISTORY:
+			return {
+				...state,
+				priceChanges: state.priceChanges.concat(action.payload)
 			}
 		default:
 			return state

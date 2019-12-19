@@ -6,6 +6,7 @@ import ItemActionTypes from '../../redux/item/item.types'
 import CustomButton from '../custom-button/custom-button.component'
 import Input from '../input-component/input.component'
 import './list-item.styles.scss'
+import { time } from 'highcharts'
 
 class ListItem extends React.Component {
 	state = {
@@ -13,16 +14,18 @@ class ListItem extends React.Component {
 		name: this.props.name,
 		ean: this.props.ean,
 		type: this.props.type,
-		wight: this.props.wight,
+		weight: this.props.weight,
 		color: this.props.color,
 		quantity: this.props.quantity,
 		price: this.props.price,
-		active: this.props.active
+		active: this.props.active,
+		time: ''
 	}
 
 	updateValue = e => {
 		e.preventDefault()
-		this.setState({ [e.target.name]: e.target.value })
+		const newTime = new Date().toLocaleTimeString()
+		this.setState({ [e.target.name]: e.target.value, time: newTime })
 	}
 
 	render() {
@@ -48,9 +51,10 @@ class ListItem extends React.Component {
 									: this.price
 							}
 							name="price"
-							onBlur={() =>
+							onBlur={() => {
 								this.props.updateInputValue(this.state)
-							}
+								this.props.updatePriceHistory(this.state)
+							}}
 						/>
 					)}
 					{this.props.quantity === undefined ? null : (
@@ -62,9 +66,10 @@ class ListItem extends React.Component {
 									? singleItem.quantity
 									: this.quantity
 							}
-							onBlur={() =>
+							onBlur={() => {
 								this.props.updateInputValue(this.state)
-							}
+								this.props.updateQuantityHistory(this.state)
+							}}
 							name="quantity"
 						/>
 					)}
@@ -100,6 +105,18 @@ const mapDispatchToProps = dispatch => {
 			dispatch({
 				type: ItemActionTypes.UPDATE_INPUT_VALUE,
 				payload: item
+			})
+		},
+		updateQuantityHistory: item => {
+			dispatch({
+				type: ItemActionTypes.UPDATE_QUANTITY_HISTORY,
+				payload: { value: item.quantity, time: item.time }
+			})
+		},
+		updatePriceHistory: item => {
+			dispatch({
+				type: ItemActionTypes.UPDATE_PRICE_HISTORY,
+				payload: { value: item.price, time: item.time }
 			})
 		}
 	}

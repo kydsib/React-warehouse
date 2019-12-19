@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import PreviewNav from '../../../components/preview-nav/preview-nav.component'
 
 import Highcharts from 'highcharts'
@@ -17,7 +19,7 @@ const options = {
 		title: {
 			text: 'Date of change'
 		},
-		categories: ['2019-07-19', '2019-07-20', '2019-09-19']
+		categories: [...this.props.priceUpdates.time]
 	},
 	yAxis: {
 		title: {
@@ -27,7 +29,7 @@ const options = {
 	series: [
 		{
 			name: 'Price',
-			data: [5, 7, 3]
+			data: [...this.props.priceUpdates.value]
 		}
 	]
 }
@@ -41,4 +43,11 @@ const PriceHistory = ({ match }) => {
 	)
 }
 
-export default PriceHistory
+const mapStateToProps = state => {
+	return {
+		value: state.itms.priceChanges.value,
+		time: state.itms.priceChanges.time
+	}
+}
+
+export default connect(mapStateToProps)(PriceHistory)
