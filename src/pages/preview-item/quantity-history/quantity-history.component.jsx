@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -6,42 +7,47 @@ import HighchartsReact from 'highcharts-react-official'
 import PreviewNav from '../../../components/preview-nav/preview-nav.component'
 import './quantity-history.styles.scss'
 
-const options = {
-	chart: {
-		type: 'line'
-	},
-	title: {
-		text: 'QuantityHistory'
-	},
-	xAxis: {
-		title: {
-			text: 'Date of change'
+const QuantityHistory = ({ match, time, quantity }) => {
+	const Options = {
+		// Highcharts object for data display
+		chart: {
+			type: 'line'
 		},
-		categories: ['2019-07-19', '2019-07-20', '2019-09-19']
-	},
-	yAxis: {
 		title: {
-			text: 'Quantity in units'
-		}
-	},
-	series: [
-		{
-			name: 'Quantity',
-			data: [12, 8, 3, 9, 32]
-		}
-	]
-}
+			text: 'Quantity History'
+		},
+		xAxis: {
+			title: {
+				text: 'Date of change'
+			},
+			categories: time
+		},
+		yAxis: {
+			title: {
+				text: 'Quantity in units'
+			}
+		},
+		series: [
+			{
+				name: 'Quantity',
+				data: quantity
+			}
+		]
+	}
 
-const QuantityHistory = ({ match }) => {
-	// without id routing breaks, on clicking back item gets undefined
 	return (
 		<div>
 			<div className="nav">
 				<PreviewNav id={match.params.id} />
 			</div>
-			<HighchartsReact highcharts={Highcharts} options={options} />
+			<HighchartsReact highcharts={Highcharts} options={Options} />
 		</div>
 	)
 }
 
-export default QuantityHistory
+const mapStateToProps = state => ({
+	quantity: state.itms.quantityChanges.value,
+	time: state.itms.quantityChanges.time
+})
+
+export default connect(mapStateToProps)(QuantityHistory)

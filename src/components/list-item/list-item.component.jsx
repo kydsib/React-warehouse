@@ -6,7 +6,6 @@ import ItemActionTypes from '../../redux/item/item.types'
 import CustomButton from '../custom-button/custom-button.component'
 import Input from '../input-component/input.component'
 import './list-item.styles.scss'
-import { time } from 'highcharts'
 
 class ListItem extends React.Component {
 	state = {
@@ -30,7 +29,6 @@ class ListItem extends React.Component {
 
 	render() {
 		const singleItem = this.state
-		console.log(singleItem)
 		return (
 			<div>
 				<ul className={this.props.className}>
@@ -40,7 +38,7 @@ class ListItem extends React.Component {
 					<li>TYPE:{this.props.type}</li>
 					<li>WEIGHT: {this.props.weight}</li>
 					<li>COLOR: {this.props.color}</li>
-
+					{/* deciding if input fields needs to be shown in current page */}
 					{this.props.price === undefined ? null : (
 						<Input
 							onChange={this.updateValue}

@@ -1,9 +1,17 @@
 import ItemActionTypes from './item.types'
 
+// Pasiskaityti - https://redux.js.org/recipes/structuring-reducers/normalizing-state-shape/
+
 const INITIAL_STATE = {
 	items: [],
-	quantityChanges: [],
-	priceChanges: []
+	quantityChanges: {
+		value: [],
+		time: []
+	},
+	priceChanges: {
+		value: [],
+		time: []
+	}
 }
 
 const itemReducer = (state = INITIAL_STATE, action) => {
@@ -45,12 +53,24 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 		case ItemActionTypes.UPDATE_QUANTITY_HISTORY:
 			return {
 				...state,
-				quantityChanges: state.quantityChanges.concat(action.payload)
+				quantityChanges: {
+					...state.quantityChanges,
+					value: state.quantityChanges.value.concat(
+						Number(action.payload.value)
+					),
+					time: state.quantityChanges.time.concat(action.payload.time)
+				}
 			}
 		case ItemActionTypes.UPDATE_PRICE_HISTORY:
 			return {
 				...state,
-				priceChanges: state.priceChanges.concat(action.payload)
+				priceChanges: {
+					...state.priceChanges,
+					value: state.priceChanges.value.concat(
+						Number(action.payload.value)
+					),
+					time: state.priceChanges.time.concat(action.payload.time)
+				}
 			}
 		default:
 			return state
