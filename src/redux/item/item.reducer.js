@@ -4,14 +4,8 @@ import ItemActionTypes from './item.types'
 
 const INITIAL_STATE = {
 	items: [],
-	quantityChanges: {
-		value: [],
-		time: []
-	},
-	priceChanges: {
-		value: [],
-		time: []
-	}
+	priceChanges: [],
+	quantityChanges: []
 }
 
 const itemReducer = (state = INITIAL_STATE, action) => {
@@ -53,24 +47,12 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 		case ItemActionTypes.UPDATE_QUANTITY_HISTORY:
 			return {
 				...state,
-				quantityChanges: {
-					...state.quantityChanges,
-					value: state.quantityChanges.value.concat(
-						Number(action.payload.value)
-					),
-					time: state.quantityChanges.time.concat(action.payload.time)
-				}
+				quantityChanges: state.quantityChanges.concat(action.payload)
 			}
 		case ItemActionTypes.UPDATE_PRICE_HISTORY:
 			return {
 				...state,
-				priceChanges: {
-					...state.priceChanges,
-					value: state.priceChanges.value.concat(
-						Number(action.payload.value)
-					),
-					time: state.priceChanges.time.concat(action.payload.time)
-				}
+				priceChanges: state.priceChanges.concat(action.payload)
 			}
 		default:
 			return state

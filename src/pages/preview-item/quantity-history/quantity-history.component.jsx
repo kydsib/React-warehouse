@@ -45,9 +45,19 @@ const QuantityHistory = ({ match, time, quantity }) => {
 	)
 }
 
-const mapStateToProps = state => ({
-	quantity: state.itms.quantityChanges.value,
-	time: state.itms.quantityChanges.time
-})
+const mapStateToProps = (state, ownProps) => {
+	// getting id of specific item
+	const id = ownProps.match.params.id
+	// geting all the data of changes by item id
+	const items = state.itms.quantityChanges.filter(item => item.id === id)
+
+	const quantities = items.map(item => Number(item.value))
+	const times = items.map(item => item.time)
+	return {
+		id: id,
+		quantity: quantities,
+		time: times
+	}
+}
 
 export default connect(mapStateToProps)(QuantityHistory)

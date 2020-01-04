@@ -43,9 +43,19 @@ const PriceHistory = ({ match, time, price }) => {
 	)
 }
 
-const mapStateToProps = state => ({
-	price: state.itms.priceChanges.value,
-	time: state.itms.priceChanges.time
-})
+const mapStateToProps = (state, ownProps) => {
+	// getting id of specific item
+	const id = ownProps.match.params.id
+	// geting all the data of changes by item id
+	const items = state.itms.priceChanges.filter(item => item.id === id)
+
+	const prices = items.map(item => Number(item.value))
+	const times = items.map(item => item.time)
+	return {
+		id: id,
+		price: prices,
+		time: times
+	}
+}
 
 export default connect(mapStateToProps)(PriceHistory)

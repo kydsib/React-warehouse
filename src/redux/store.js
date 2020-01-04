@@ -8,6 +8,5 @@ const middlewares = [logger]
 // middlewares expect array of values
 
 const store = createStore(rootReducer, applyMiddleware(...middlewares))
-console.log(store.getState())
 
 export default store
