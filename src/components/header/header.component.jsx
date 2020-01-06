@@ -12,9 +12,6 @@ const Header = () => (
 			<NavLink className="option" to="/products/create">
 				NEW
 			</NavLink>
-			<NavLink className="option" to="/products/{id}/edit">
-				EDIT
-			</NavLink>
 		</div>
 	</div>
 )

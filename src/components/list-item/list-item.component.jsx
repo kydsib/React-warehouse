@@ -18,13 +18,25 @@ class ListItem extends React.Component {
 		quantity: this.props.quantity,
 		price: this.props.price,
 		active: this.props.active,
-		time: '' // do I need this here?
+		time: ''
 	}
 
 	updateValue = e => {
 		e.preventDefault()
-		const newTime = new Date().toLocaleTimeString()
-		this.setState({ [e.target.name]: e.target.value, time: newTime })
+		const currentDate = new Date()
+		const formatedDate =
+			currentDate.getFullYear() +
+			'-' +
+			(currentDate.getMonth() + 1) +
+			'-' +
+			currentDate.getDate() +
+			' ' +
+			currentDate.getHours() +
+			':' +
+			currentDate.getMinutes() +
+			':' +
+			currentDate.getSeconds()
+		this.setState({ [e.target.name]: e.target.value, time: formatedDate })
 	}
 
 	render() {
@@ -108,14 +120,12 @@ const mapDispatchToProps = dispatch => {
 		updateQuantityHistory: item => {
 			dispatch({
 				type: ItemActionTypes.UPDATE_QUANTITY_HISTORY,
-				// payload: { value: item.quantity, time: item.time }
 				payload: { id: item.id, value: item.quantity, time: item.time }
 			})
 		},
 		updatePriceHistory: item => {
 			dispatch({
 				type: ItemActionTypes.UPDATE_PRICE_HISTORY,
-				// payload: { value: item.price, time: item.time }
 				payload: { id: item.id, value: item.price, time: item.time }
 			})
 		}

@@ -7,7 +7,7 @@ import Header from './components/header/header.component'
 import ListPage from './pages/items-list/items-list.component'
 import NewItemPage from './pages/new-item/new-item.component'
 import ItemDetail from './pages/preview-item/preview-item.component'
-// import EditPage from  './pages/edit-item/edit-page.component'
+import EditPage from './pages/edit-item/edit-page.component'
 import PriceHistory from './pages/preview-item/price-history/price-history.component'
 import QuantityHistory from './pages/preview-item/quantity-history/quantity-history.component'
 
@@ -37,6 +37,11 @@ function App() {
 					<Route path="/products/:id" exact component={ItemDetail} />
 
 					<Route path="/products" exact component={ListPage} />
+					<Route
+						path="/products/:id/edit"
+						exact
+						component={EditPage}
+					/>
 				</Switch>
 			</div>
 		</Router>

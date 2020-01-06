@@ -45,14 +45,29 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				items: updatedState
 			}
 		case ItemActionTypes.UPDATE_QUANTITY_HISTORY:
+			const firstValueRemoved =
+				state.quantityChanges.length >= 5
+					? state.quantityChanges.shift()
+					: state.quantityChanges
+
 			return {
 				...state,
-				quantityChanges: state.quantityChanges.concat(action.payload)
+				quantityChanges:
+					state.quantityChanges.length >= 5
+						? firstValueRemoved.concat(action.payload)
+						: state.quantityChanges.concat(action.payload)
 			}
 		case ItemActionTypes.UPDATE_PRICE_HISTORY:
+			const firstPriceRemoved =
+				state.priceChanges.length >= 5
+					? state.priceChanges.shift()
+					: state.priceChanges
 			return {
 				...state,
-				priceChanges: state.priceChanges.concat(action.payload)
+				priceChanges:
+					state.priceChanges.length >= 5
+						? firstPriceRemoved.concat(action.payload)
+						: state.priceChanges.concat(action.payload)
 			}
 		default:
 			return state
