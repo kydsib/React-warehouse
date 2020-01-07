@@ -21,3 +21,8 @@ export const updateValue = data => ({
 	type: ItemActionTypes.UPDATE_INPUT_VALUE,
 	payload: data
 })
+
+export const updateItemValues = values => ({
+	type: ItemActionTypes.UPDATE_ITEM_VALUES,
+	payload: values
+})

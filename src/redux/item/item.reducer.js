@@ -35,6 +35,7 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			}
 
 		case ItemActionTypes.UPDATE_INPUT_VALUE:
+			// geting all the data except of a current item, that is being recieved
 			const itemToUpdate = state.items.filter(
 				item => item.id !== action.payload.id
 			)
@@ -46,6 +47,7 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			}
 		case ItemActionTypes.UPDATE_QUANTITY_HISTORY:
 			const firstValueRemoved =
+				// logic for keeping last five values
 				state.quantityChanges.length >= 5
 					? state.quantityChanges.shift()
 					: state.quantityChanges
@@ -68,6 +70,17 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 					state.priceChanges.length >= 5
 						? firstPriceRemoved.concat(action.payload)
 						: state.priceChanges.concat(action.payload)
+			}
+		case ItemActionTypes.UPDATE_ITEM_VALUES:
+			const oldItems = state.items.filter(
+				item => item.id !== action.payload.id
+			)
+
+			const newValues = oldItems.concat(action.payload)
+
+			return {
+				...state,
+				items: newValues
 			}
 		default:
 			return state
