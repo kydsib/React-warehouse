@@ -14,7 +14,7 @@ const PriceHistory = ({ match, time, price }) => {
 			type: 'line'
 		},
 		title: {
-			text: 'Price History'
+			text: ''
 		},
 		xAxis: {
 			title: {

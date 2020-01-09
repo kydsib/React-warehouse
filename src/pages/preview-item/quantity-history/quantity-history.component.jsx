@@ -14,7 +14,7 @@ const QuantityHistory = ({ match, time, quantity }) => {
 			type: 'line'
 		},
 		title: {
-			text: 'Quantity History'
+			text: ''
 		},
 		xAxis: {
 			title: {

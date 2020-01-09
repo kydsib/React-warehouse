@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import './preview-item.styles.scss'
 import ItemActionTypes from '../../redux/item/item.types'
-import ListItem from '../../components/list-item/list-item.component'
+import SingleItem from '../../components/single-item/single-item.component'
 import PreviewNav from '../../components/preview-nav/preview-nav.component'
 
 class ItemDetail extends React.Component {
@@ -15,7 +15,8 @@ class ItemDetail extends React.Component {
 				<div className="nav">
 					<PreviewNav id={singleItem.id} />
 				</div>
-				<ListItem
+				<SingleItem
+					// conditionaly highlingting item if it is out of stock
 					className={`product ${
 						singleItem.quantity > 0 ? '' : 'empty-stock'
 					}`}
@@ -39,7 +40,7 @@ class ItemDetail extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
 	let id = ownProps.match.params.id
-	// need to get id of single ListItem
+	// need to get id of SingleItem
 	return {
 		singleItemById: state.itms.items.find(item => item.id === id)
 	}

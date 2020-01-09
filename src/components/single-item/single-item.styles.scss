@@ -1,0 +1,34 @@
+.product {
+	.product-body {
+		background-color: white;
+	}
+	&.empty-stock {
+		background-color: salmon;
+	}
+}
+
+.item-container {
+	display: flex;
+
+	.single-item {
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+		width: 70vw;
+
+		&__data {
+			padding-right: 10px;
+		}
+	}
+}
+
+.buttons {
+	display: flex;
+}
+
+td {
+	// border: 1px solid #ddd;
+	padding: 12px 0px;
+	text-align: center;
+	vertical-align: middle;
+}
