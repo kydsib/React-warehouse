@@ -46,30 +46,37 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				items: updatedState
 			}
 		case ItemActionTypes.UPDATE_QUANTITY_HISTORY:
+			// get the array of items by same id
+			const qtyData = state.quantityChanges.filter(
+				item => item.id === action.payload.id
+			)
+			const restOfItems = state.quantityChanges.filter(
+				item => item.id !== action.payload.id
+			)
+			// remove first item from arr if lenght >= 5
 			const firstValueRemoved =
-				// logic for keeping last five values
-				state.quantityChanges.length >= 5
-					? state.quantityChanges.shift()
-					: state.quantityChanges
+				qtyData.length >= 5
+					? qtyData.shift().concat(action.payload)
+					: qtyData.concat(action.payload)
+			return {
+				...state,
+				quantityChanges: restOfItems.concat(firstValueRemoved)
+			}
+		case ItemActionTypes.UPDATE_PRICE_HISTORY:
+			const priceData = state.priceChanges.filter(
+				item => item.id === action.payload.id
+			)
+			const otherItems = state.priceChanges.filter(
+				item => item.id !== action.payload.id
+			)
+			const newestValues =
+				priceData.length >= 5
+					? priceData.shift().concat(action.payload)
+					: priceData.concat(action.payload)
 
 			return {
 				...state,
-				quantityChanges:
-					state.quantityChanges.length >= 5
-						? firstValueRemoved.concat(action.payload)
-						: state.quantityChanges.concat(action.payload)
-			}
-		case ItemActionTypes.UPDATE_PRICE_HISTORY:
-			const firstPriceRemoved =
-				state.priceChanges.length >= 5
-					? state.priceChanges.shift()
-					: state.priceChanges
-			return {
-				...state,
-				priceChanges:
-					state.priceChanges.length >= 5
-						? firstPriceRemoved.concat(action.payload)
-						: state.priceChanges.concat(action.payload)
+				priceChanges: otherItems.concat(newestValues)
 			}
 		case ItemActionTypes.UPDATE_ITEM_VALUES:
 			const oldItems = state.items.filter(
