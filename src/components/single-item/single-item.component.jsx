@@ -43,46 +43,13 @@ class SingleItem extends React.Component {
 		const singleItem = this.state
 		return (
 			// passing class as a prop if qty = 0
-			<tr className={`${this.props.className} grid`}>
+
+			<tr className={`grid ${this.props.className}`}>
 				<td className="grid__item">{this.props.name}</td>
 				<td className="grid__item">{this.props.ean}</td>
 				<td className="grid__item">{this.props.type}</td>
 				<td className="grid__item">{this.props.weight}</td>
 				<td className="grid__item">{this.props.color}</td>
-
-				{/* deciding if input fields needs to be shown in current page */}
-				{this.props.price === undefined ? null : (
-					<Input
-						onChange={this.updateValue}
-						id={this.props.id}
-						value={
-							this.price === undefined
-								? singleItem.price
-								: this.price
-						}
-						name="price"
-						onBlur={() => {
-							this.props.updateInputValue(this.state)
-							this.props.updatePriceHistory(this.state)
-						}}
-					/>
-				)}
-				{this.props.quantity === undefined ? null : (
-					<Input
-						onChange={this.updateValue}
-						id={this.props.id}
-						value={
-							this.quantity === undefined
-								? singleItem.quantity
-								: this.quantity
-						}
-						onBlur={() => {
-							this.props.updateInputValue(this.state)
-							this.props.updateQuantityHistory(this.state)
-						}}
-						name="quantity"
-					/>
-				)}
 				<td className="grid-item">
 					<label>
 						<input
@@ -93,6 +60,44 @@ class SingleItem extends React.Component {
 						/>
 					</label>
 				</td>
+
+				{/* deciding if input fields needs to be shown in current page */}
+
+				{this.props.price === undefined ? null : (
+					<td>
+						<Input
+							onChange={this.updateValue}
+							id={this.props.id}
+							value={
+								this.price === undefined
+									? singleItem.price
+									: this.price
+							}
+							onBlur={() => {
+								this.props.updateInputValue(this.state)
+								this.props.updatePriceHistory(this.state)
+							}}
+						/>
+					</td>
+				)}
+
+				{this.props.quantity === undefined ? null : (
+					<td>
+						<Input
+							onChange={this.updateValue}
+							id={this.props.id}
+							value={
+								this.quantity === undefined
+									? singleItem.quantity
+									: this.quantity
+							}
+							onBlur={() => {
+								this.props.updateInputValue(this.state)
+								this.props.updateQuantityHistory(this.state)
+							}}
+						/>
+					</td>
+				)}
 
 				<td>
 					{/* checking if I need view button in current route */}
