@@ -11,10 +11,10 @@ const TableHeader = ({ qty }) => {
 				<th className="grid_item">color</th>
 				<th className="grid_item">in stock</th>
 				{qty === undefined ? null : (
-					<th className="grid_item">quantity</th>
+					<th className="grid_item">price</th>
 				)}
 				{qty === undefined ? null : (
-					<th className="grid_item">price</th>
+					<th className="grid_item">quantity</th>
 				)}
 			</tr>
 		</thead>
