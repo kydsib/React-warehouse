@@ -73,6 +73,7 @@ class SingleItem extends React.Component {
 									? singleItem.price
 									: this.price
 							}
+							name="price"
 							onBlur={() => {
 								this.props.updateInputValue(this.state)
 								this.props.updatePriceHistory(this.state)
@@ -91,6 +92,7 @@ class SingleItem extends React.Component {
 									? singleItem.quantity
 									: this.quantity
 							}
+							name="quantity"
 							onBlur={() => {
 								this.props.updateInputValue(this.state)
 								this.props.updateQuantityHistory(this.state)
