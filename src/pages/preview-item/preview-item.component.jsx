@@ -24,10 +24,9 @@ class ItemDetail extends React.Component {
 					<tbody>
 						<SingleItem
 							className={`product ${
-								singleItem.quantity > 0 ? '' : 'empty-stock'
-							}
-                            ${singleItem.quantity ? 'eight' : ''}
-                            `} // second ternary is for aditional class in preview tab // looks too hacky, find a simpler solution
+								singleItem.quantity > 0 ? '' : 'emptystock'
+							} ${singleItem.quantity ? 'eight' : ''}`}
+							// second ternary is for aditional class in preview tab // looks too hacky, find a simpler solution
 							key={singleItem.id}
 							id={singleItem.id}
 							name={singleItem.name}

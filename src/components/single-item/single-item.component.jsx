@@ -48,6 +48,16 @@ class SingleItem extends React.Component {
 				<td className="grid__item">{this.props.type}</td>
 				<td className="grid__item">{this.props.weight}</td>
 				<td className="grid__item">{this.props.color}</td>
+				<td className="grid-item">
+					<label>
+						<input
+							type="checkbox"
+							name="active"
+							defaultChecked={this.props.active}
+							onClick={this.props.onClick}
+						/>
+					</label>
+				</td>
 
 				{/* deciding if input fields needs to be shown in current page */}
 				{this.props.price === undefined ? null : (
@@ -84,16 +94,6 @@ class SingleItem extends React.Component {
 						/>
 					</td>
 				)}
-				<td className="grid-item">
-					<label>
-						<input
-							type="checkbox"
-							name="active"
-							defaultChecked={this.props.active}
-							onClick={this.props.onClick}
-						/>
-					</label>
-				</td>
 
 				<td>
 					{/* checking if I need view button in current route */}
