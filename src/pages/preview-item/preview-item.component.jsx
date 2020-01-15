@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import './preview-item.styles.scss'
 import ItemActionTypes from '../../redux/item/item.types'
+import TableHeader from '../../components/table-header/table-header.component'
 import SingleItem from '../../components/single-item/single-item.component'
 import PreviewNav from '../../components/preview-nav/preview-nav.component'
 
@@ -15,24 +16,37 @@ class ItemDetail extends React.Component {
 				<div className="nav">
 					<PreviewNav id={singleItem.id} />
 				</div>
-				<SingleItem
-					// conditionaly highlingting item if it is out of stock
-					className={`product ${
-						singleItem.quantity > 0 ? '' : 'empty-stock'
-					}`}
-					key={singleItem.id}
-					id={singleItem.id}
-					name={singleItem.name}
-					ean={singleItem.ean}
-					type={singleItem.type}
-					weight={singleItem.weight}
-					color={singleItem.color}
-					quantity={singleItem.quantity}
-					price={singleItem.price}
-					active={singleItem.active}
-					onClick={() => this.props.enableDisable(singleItem.id)}
-					deleteItem={() => this.props.deleteItemById(singleItem.id)}
-				/>
+				<table>
+					<TableHeader
+						qty={singleItem.quantity}
+						className={`${singleItem.quantity ? 'eight' : ''}`}
+					/>
+					<tbody>
+						<SingleItem
+							className={`product ${
+								singleItem.quantity > 0 ? '' : 'empty-stock'
+							}
+                            ${singleItem.quantity ? 'eight' : ''}
+                            `} // second ternary is for aditional class in preview tab // looks too hacky, find a simpler solution
+							key={singleItem.id}
+							id={singleItem.id}
+							name={singleItem.name}
+							ean={singleItem.ean}
+							type={singleItem.type}
+							weight={singleItem.weight}
+							color={singleItem.color}
+							quantity={singleItem.quantity}
+							price={singleItem.price}
+							active={singleItem.active}
+							onClick={() =>
+								this.props.enableDisable(singleItem.id)
+							}
+							deleteItem={() =>
+								this.props.deleteItemById(singleItem.id)
+							}
+						/>
+					</tbody>
+				</table>
 			</div>
 		)
 	}

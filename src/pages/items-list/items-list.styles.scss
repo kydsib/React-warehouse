@@ -33,3 +33,8 @@ table {
 	&__item {
 	}
 }
+.eight {
+	grid-template-columns: repeat(8, 1fr) 200px;
+	align-items: center;
+	border-bottom: 1px solid #ddd;
+}

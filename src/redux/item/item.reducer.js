@@ -56,7 +56,7 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			// remove first item from arr if lenght >= 5
 			const firstValueRemoved =
 				qtyData.length >= 5
-					? qtyData.shift().concat(action.payload)
+					? qtyData.splice(0, 1).concat(action.payload)
 					: qtyData.concat(action.payload)
 			return {
 				...state,
@@ -71,7 +71,7 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			)
 			const newestValues =
 				priceData.length >= 5
-					? priceData.shift().concat(action.payload)
+					? priceData.splice(0, 1).concat(action.payload)
 					: priceData.concat(action.payload)
 
 			return {

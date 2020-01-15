@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import ItemActionTypes from '../../redux/item/item.types'
+import TableHeader from '../../components/table-header/table-header.component'
 import './items-list.styles.scss'
 import SingleItem from '../../components/single-item/single-item.component'
 
@@ -13,31 +14,28 @@ class ListPage extends React.Component {
 			<div className="list-page">
 				{/* Need to create separate compoennt fo th */}
 				<table>
-					<tr className="grid">
-						<th className="grid__item">name</th>
-						<th className="grid__item">ean</th>
-						<th className="grid__item">type</th>
-						<th className="grid__item">weight</th>
-						<th className="grid__item">color</th>
-						<th className="grid__item">in stock</th>
-					</tr>
-					{this.props.itemsFromStore.map(item => (
-						<SingleItem
-							className="single-item"
-							key={item.id}
-							id={item.id}
-							name={item.name}
-							ean={item.ean}
-							type={item.type}
-							weight={item.weight}
-							color={item.color}
-							active={item.active}
-							onClick={() => this.props.enableDisable(item.id)}
-							deleteItem={() =>
-								this.props.deleteItemById(item.id)
-							}
-						/>
-					))}
+					<TableHeader />
+					<tbody>
+						{this.props.itemsFromStore.map(item => (
+							<SingleItem
+								className="single-item"
+								key={item.id}
+								id={item.id}
+								name={item.name}
+								ean={item.ean}
+								type={item.type}
+								weight={item.weight}
+								color={item.color}
+								active={item.active}
+								onClick={() =>
+									this.props.enableDisable(item.id)
+								}
+								deleteItem={() =>
+									this.props.deleteItemById(item.id)
+								}
+							/>
+						))}
+					</tbody>
 				</table>
 			</div>
 		)
