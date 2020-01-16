@@ -1,45 +1,36 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import ItemActionTypes from '../../redux/item/item.types'
+import { toggleItemActive, deleteItem } from '../../redux/item/item.actions'
 import TableHeader from '../../components/table-header/table-header.component'
 import './items-list.styles.scss'
 import SingleItem from '../../components/single-item/single-item.component'
 
-class ListPage extends React.Component {
-	// Make a functional component? Or I'll need a sate here?
-
-	render() {
-		return (
-			<div className="list-page">
-				{/* Need to create separate compoennt fo th */}
-				<table>
-					<TableHeader />
-					<tbody>
-						{this.props.itemsFromStore.map(item => (
-							<SingleItem
-								className="single-item"
-								key={item.id}
-								id={item.id}
-								name={item.name}
-								ean={item.ean}
-								type={item.type}
-								weight={item.weight}
-								color={item.color}
-								active={item.active}
-								onClick={() =>
-									this.props.enableDisable(item.id)
-								}
-								deleteItem={() =>
-									this.props.deleteItemById(item.id)
-								}
-							/>
-						))}
-					</tbody>
-				</table>
-			</div>
-		)
-	}
+const ListPage = ({ itemsFromStore, enableDisable, deleteItemById }) => {
+	return (
+		<div className="list-page">
+			<table>
+				<TableHeader />
+				<tbody>
+					{itemsFromStore.map(item => (
+						<SingleItem
+							className="single-item"
+							key={item.id}
+							id={item.id}
+							name={item.name}
+							ean={item.ean}
+							type={item.type}
+							weight={item.weight}
+							color={item.color}
+							active={item.active}
+							onClick={() => enableDisable(item.id)}
+							deleteItem={() => deleteItemById(item.id)}
+						/>
+					))}
+				</tbody>
+			</table>
+		</div>
+	)
 }
 
 const mapStateToProps = state => {
@@ -51,10 +42,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		enableDisable: id =>
-			dispatch({ type: ItemActionTypes.TOGGLE_ITEM_ACTIVE, payload: id }),
+		enableDisable: id => dispatch(toggleItemActive(id)),
 		deleteItemById: id => {
-			dispatch({ type: ItemActionTypes.DELETE_ITEM, payload: id })
+			dispatch(deleteItem(id))
 		}
 	}
 }

@@ -5,7 +5,7 @@ import uniqid from 'uniqid'
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
 
-import ItemActionTypes from '../../redux/item/item.types'
+import { addItem } from '../../redux/item/item.actions'
 
 import './item.styles.scss'
 
@@ -122,9 +122,12 @@ class Item extends React.Component {
 	}
 }
 
-const mapDispatchToProps = dispatch => ({
-	onAddItem: item =>
-		dispatch({ type: ItemActionTypes.ADD_NEW_ITEM, payload: item })
-})
+const mapDispatchToProps = dispatch => {
+	return {
+		onAddItem: item => {
+			dispatch(addItem(item))
+		}
+	}
+}
 
 export default connect(null, mapDispatchToProps)(Item)

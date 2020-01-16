@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 // import Item from './../../components/item/item.component'
+import { editItem } from '../../redux/item/item.actions'
 import FormInput from './../../components/form-input/form-input.component'
 import CustomButton from './../../components/custom-button/custom-button.component'
 import './edit-page.styles.scss'
@@ -80,13 +82,15 @@ class EditPage extends React.Component {
 					label="price"
 					required
 				/>
-				<CustomButton
-					type="submit"
-					// dispatching updated values
-					onClick={() => this.props.updateItemValues(this.state)}
-				>
-					Save
-				</CustomButton>
+				<Link to={`/products`}>
+					<CustomButton
+						type="submit"
+						// dispatching updated values
+						onClick={() => this.props.updateItemValues(this.state)}
+					>
+						Save
+					</CustomButton>
+				</Link>
 			</div>
 		)
 	}
@@ -111,8 +115,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-	updateItemValues: values =>
-		dispatch({ type: ItemActionTypes.UPDATE_ITEM_VALUES, payload: values })
+	updateItemValues: values => dispatch(editItem(values))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPage)

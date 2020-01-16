@@ -78,7 +78,7 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				priceChanges: otherItems.concat(newestValues)
 			}
-		case ItemActionTypes.UPDATE_ITEM_VALUES:
+		case ItemActionTypes.EDIT_ITEM:
 			const oldItems = state.items.filter(
 				item => item.id !== action.payload.id
 			)

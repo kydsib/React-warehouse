@@ -1,13 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import ItemActionTypes from '../../redux/item/item.types'
 
+import {
+	updateValue,
+	updatePrice,
+	updateQuantity
+} from '../../redux/item/item.actions'
 import CustomButton from '../custom-button/custom-button.component'
 import Input from '../input-component/input.component'
 import './single-item.styles.scss'
 
 class SingleItem extends React.Component {
+	// Initializing State from Props In most cases, this is an antipattern. Don’t “copy props into state.” It creates a second source of truth for your data, which usually leads to bugs. One source of truth is best.
+	// However, it’s not an anti-pattern if you make it clear that the prop is only seed data for the component’s internally-controlled state.s
+
 	state = {
 		id: this.props.id,
 		name: this.props.name,
@@ -65,11 +72,8 @@ class SingleItem extends React.Component {
 						<Input
 							onChange={this.updateValue}
 							id={this.props.id}
-							value={
-								this.price === undefined
-									? singleItem.price
-									: this.price
-							}
+							// value galeciau pasiimti per propsus o renderinti tikrindamas ar is mapState ateianti value skiriasi nuo prosps ir pakeisiti
+							value={singleItem.price}
 							name="price"
 							onBlur={() => {
 								this.props.updateInputValue(this.state)
@@ -83,11 +87,7 @@ class SingleItem extends React.Component {
 						<Input
 							onChange={this.updateValue}
 							id={this.props.id}
-							value={
-								this.quantity === undefined
-									? singleItem.quantity
-									: this.quantity
-							}
+							value={singleItem.quantity}
 							name="quantity"
 							onBlur={() => {
 								this.props.updateInputValue(this.state)
@@ -123,22 +123,13 @@ class SingleItem extends React.Component {
 const mapDispatchToProps = dispatch => {
 	return {
 		updateInputValue: item => {
-			dispatch({
-				type: ItemActionTypes.UPDATE_INPUT_VALUE,
-				payload: item
-			})
+			dispatch(updateValue(item))
 		},
 		updateQuantityHistory: item => {
-			dispatch({
-				type: ItemActionTypes.UPDATE_QUANTITY_HISTORY,
-				payload: { id: item.id, value: item.quantity, time: item.time }
-			})
+			dispatch(updateQuantity(item))
 		},
 		updatePriceHistory: item => {
-			dispatch({
-				type: ItemActionTypes.UPDATE_PRICE_HISTORY,
-				payload: { id: item.id, value: item.price, time: item.time }
-			})
+			dispatch(updatePrice(item))
 		}
 	}
 }
