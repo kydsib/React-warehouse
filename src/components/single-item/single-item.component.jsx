@@ -50,13 +50,23 @@ class SingleItem extends React.Component {
 		const singleItem = this.state
 		return (
 			<tr className={`grid ${this.props.className}`}>
-				<td className="grid__item">{this.props.name}</td>
-				<td className="grid__item">{this.props.ean}</td>
-				<td className="grid__item">{this.props.type}</td>
-				<td className="grid__item">{this.props.weight}</td>
-				<td className="grid__item">{this.props.color}</td>
+				<td className="grid__item">
+					<span className="alignment">{this.props.name}</span>
+				</td>
+				<td className="grid__item">
+					<span className="alignment">{this.props.ean}</span>
+				</td>
+				<td className="grid__item">
+					<span className="alignment">{this.props.type}</span>
+				</td>
+				<td className="grid__item">
+					<span className="alignment">{this.props.weight}</span>
+				</td>
+				<td className="grid__item">
+					<span className="alignment">{this.props.color}</span>
+				</td>
 				<td className="grid-item">
-					<label>
+					<label className="alignment">
 						<input
 							type="checkbox"
 							name="active"
