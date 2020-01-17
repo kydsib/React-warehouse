@@ -26,12 +26,20 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 				items: state.items.concat(action.payload)
 			}
 		case ItemActionTypes.DELETE_ITEM:
-			const itemToDelete = state.items.filter(
+			const itemsToLeave = state.items.filter(
+				item => item.id !== action.payload
+			)
+			const qtysToLeave = state.quantityChanges.filter(
+				item => item.id !== action.payload
+			)
+			const pricesToLeave = state.priceChanges.filter(
 				item => item.id !== action.payload
 			)
 			return {
 				...state,
-				items: itemToDelete
+				items: itemsToLeave,
+				priceChanges: pricesToLeave,
+				quantityChanges: qtysToLeave
 			}
 
 		case ItemActionTypes.UPDATE_INPUT_VALUE:
@@ -56,7 +64,7 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			// remove first item from arr if lenght >= 5
 			const firstValueRemoved =
 				qtyData.length >= 5
-					? qtyData.splice(0, 1).concat(action.payload)
+					? qtyData.slice(1).concat(action.payload)
 					: qtyData.concat(action.payload)
 			return {
 				...state,
@@ -71,7 +79,7 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			)
 			const newestValues =
 				priceData.length >= 5
-					? priceData.splice(0, 1).concat(action.payload)
+					? priceData.slice(1).concat(action.payload)
 					: priceData.concat(action.payload)
 
 			return {

@@ -39,8 +39,3 @@ export const editItem = values => ({
 	type: ItemActionTypes.EDIT_ITEM,
 	payload: values
 })
-
-// turksta update qty ir price action creatoriu
-
-// updateValue ir updateItemValues atrodo, kad nesiskiria
-// negaliu pasakyti ka daro
