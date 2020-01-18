@@ -4,9 +4,14 @@ import ItemActionTypes from './item.types'
 
 const INITIAL_STATE = {
 	items: [],
-	priceChanges: [],
+	priceChanges: [], // storing these as objs could make it easier to modify specific values
 	quantityChanges: []
 }
+
+// TODO
+// 1. Items need to have a refference to user.id from firebase.auth
+// 2. ItemsList page, need to show data only of currently logged use. If no user is loged in, no data is beuing shown
+// 3. Add and delete item should dispatch two actions? To set data in items also users part?
 
 const itemReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {

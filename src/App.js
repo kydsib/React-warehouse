@@ -34,6 +34,7 @@ class App extends React.Component {
 				userRef.onSnapshot(snapshot => {
 					setCurrentUser({
 						id: snapshot.id,
+						// getting the actual properties on the obj form firebase
 						...snapshot.data()
 					})
 				})
@@ -57,7 +58,7 @@ class App extends React.Component {
 							path="/signin"
 							render={() =>
 								this.props.currentUser ? (
-									<Redirect to="/products" /> // pakeisti i home page ="/"
+									<Redirect to="/products" /> // pakeisti i home page ="/", kai sutvarkysiu saugojima pagal user id
 								) : (
 									<SignInSignUpPage />
 								)

@@ -1,4 +1,4 @@
-import firebase from 'firebase/app'
+import firebase from 'firebase/app' // importing only pats that going to be used
 import 'firebase/firestore' // storage
 import 'firebase/auth' // authorisation
 
@@ -16,9 +16,12 @@ const config = {
 export const createUserProfileDocument = async (userAuth, additionalData) => {
 	if (!userAuth) return
 
+	// kokia data gaunu su userRef ar yra uid? Jo reikes saugoti data
 	const userRef = firestore.doc(`users/${userAuth.uid}`)
+	// geting obj of user data from firebase
 	const snapShot = await userRef.get()
 
+	// If user is not in data base we are creating it
 	if (!snapShot.exists) {
 		const { displayName, email } = userAuth
 		const createdAt = new Date()
@@ -44,7 +47,9 @@ export const auth = firebase.auth()
 export const firestore = firebase.firestore()
 
 const provider = new firebase.auth.GoogleAuthProvider()
+// trigering google pop-up every time we use google auth. provider
 provider.setCustomParameters({ prompt: 'select_account' })
+// using only google pop-up
 export const signInWithGoogle = () => auth.signInWithPopup(provider)
 
 export default firebase
