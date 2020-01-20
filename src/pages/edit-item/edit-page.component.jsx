@@ -7,7 +7,6 @@ import { editItem } from '../../redux/item/item.actions'
 import FormInput from './../../components/form-input/form-input.component'
 import CustomButton from './../../components/custom-button/custom-button.component'
 import './edit-page.styles.scss'
-import ItemActionTypes from '../../redux/item/item.types'
 
 class EditPage extends React.Component {
 	// initialiing item state from redux data
