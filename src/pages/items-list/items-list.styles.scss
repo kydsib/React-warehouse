@@ -14,34 +14,57 @@
 	width: 65vw;
 }
 
+table {
+	width: 92vw;
+}
+
 th {
 	padding: 12px 0px;
 	text-transform: uppercase;
-}
-
-table {
-	width: 90vw;
-	border-collapse: collapse;
+	border-radius: 5px;
 }
 
 .grid {
 	display: grid;
 	grid-template-columns: repeat(6, 1fr) 300px;
 	align-items: center;
-	border-bottom: 1px solid #ddd;
-
-	&__item {
-	}
 }
 .eight {
 	grid-template-columns: repeat(8, 1fr) 200px;
 	align-items: center;
-	border-bottom: 1px solid #ddd;
 }
 
-/*
-	Max width before this PARTICULAR table gets nasty. This query will take effect for any screen smaller than 760px and also iPads specifically.
-	*/
+tbody tr td {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	color: #5f6062;
+	font-size: 16px;
+}
+
+tbody tr:nth-child(2n) {
+	background: #f0f3f5;
+}
+
+tbody tr:last-child td {
+	border-bottom: none;
+	&:first-child {
+		border-bottom-left-radius: 5px;
+	}
+	&:last-child {
+		border-bottom-right-radius: 5px;
+	}
+}
+
+tbody:hover > tr td {
+	opacity: 0.5;
+}
+
+tbody:hover > tr:hover td {
+	text-shadow: none;
+	color: #2d2d2d;
+	opacity: 1;
+}
+
 @media only screen and (max-width: 1300px) {
 	/* Force table to not be like tables anymore */
 	table,
@@ -89,7 +112,6 @@ table {
 		font-weight: 600;
 		/* Top/left values mimic padding */
 		left: 6px;
-		width: 45%;
 	}
 	td:nth-of-type(1)::before {
 		content: 'NAME';

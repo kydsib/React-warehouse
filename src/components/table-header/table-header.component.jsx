@@ -1,4 +1,5 @@
 import React from 'react'
+import './table-header.styles.scss'
 
 const TableHeader = ({ qty }) => {
 	return (

@@ -24,7 +24,7 @@ const ItemDetail = ({ singleItemById, enableDisable, deleteItemById }) => {
 				<tbody>
 					<SingleItem
 						className={`product ${
-							singleItem.quantity > 0 ? '' : 'emptystock'
+							singleItem.quantity > 0 ? '' : 'empty-stock'
 						} ${singleItem.quantity ? 'eight' : ''}`}
 						// second ternary is for aditional class in preview tab // looks too hacky, find a simpler solution
 						key={singleItem.id}

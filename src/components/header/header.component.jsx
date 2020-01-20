@@ -7,10 +7,10 @@ const Header = () => (
 	<div className="header">
 		<div className="options">
 			<NavLink className="option" to="/products" exact>
-				LIST
+				Items list
 			</NavLink>
 			<NavLink className="option" to="/products/create" exact>
-				NEW
+				Add Item
 			</NavLink>
 		</div>
 	</div>

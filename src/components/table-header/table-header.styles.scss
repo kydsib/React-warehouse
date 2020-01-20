@@ -1,0 +1,14 @@
+thead th {
+	color: #fff;
+	padding: 20px;
+	background-image: (linear-gradient(#646f7f, #4a5564));
+	border: 1px solid #fff;
+
+	&:first-child {
+		border-top-left-radius: 5px;
+	}
+
+	&:last-child {
+		border-top-right-radius: 5px;
+	}
+}
