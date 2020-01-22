@@ -29,8 +29,11 @@ const Header = ({ currentUser }) => (
 	</div>
 )
 
-const mapStateToProps = ({ user: { currentUser } }) => ({
-	currentUser
-})
+const mapStateToProps = state => {
+	// console.log(state.itms.currentUser)
+	return {
+		currentUser: state.itms.currentUser
+	}
+}
 
 export default connect(mapStateToProps)(Header)

@@ -26,3 +26,10 @@ export const updateItemValues = values => ({
 	type: ItemActionTypes.UPDATE_ITEM_VALUES,
 	payload: values
 })
+
+// trying to figure out how to connect user to items
+
+export const setCurrentUser = user => ({
+	type: ItemActionTypes.SET_CURRENT_USER,
+	payload: user
+})

@@ -19,14 +19,18 @@ import PriceHistory from './pages/preview-item/price-history/price-history.compo
 import QuantityHistory from './pages/preview-item/quantity-history/quantity-history.component'
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
-import { setCurrentUser } from './redux/user/user.action'
+// import { setCurrentUser } from './redux/user/user.action' Working - comented for while I'll find new solution
+import { setCurrentUser } from './redux/item/item.actions'
 
 class App extends React.Component {
+	// state = {
+	// 	currentUser: null
+	// }
 	unsubscribeFromAuth = null
 
 	componentDidMount() {
 		const { setCurrentUser } = this.props
-
+		// open subscribtion to firebase (sign-in and sign-out)
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 			if (userAuth) {
 				const userRef = await createUserProfileDocument(userAuth)
@@ -100,8 +104,8 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = ({ user }) => ({
-	currentUser: user.currentUser
+const mapStateToProps = state => ({
+	currentUser: state.itms.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

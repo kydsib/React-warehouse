@@ -1,4 +1,5 @@
-import firebase from 'firebase/app' // importing only pats that going to be used
+import firebase from 'firebase/app'
+
 import 'firebase/firestore' // storage
 import 'firebase/auth' // authorisation
 
@@ -16,8 +17,9 @@ const config = {
 export const createUserProfileDocument = async (userAuth, additionalData) => {
 	if (!userAuth) return
 
-	// kokia data gaunu su userRef ar yra uid? Jo reikes saugoti data
+	// userRef.id will give me id of specific user
 	const userRef = firestore.doc(`users/${userAuth.uid}`)
+
 	// geting obj of user data from firebase
 	const snapShot = await userRef.get()
 
