@@ -30,6 +30,8 @@ export const selectItemsToDisplay = state => {
 		)
 
 	const dataToFilter = state.itms.items
+	console.log(dataToFilter)
+	console.log(dataToFilter.byId)
 	const currentUserId = state.itms.currentUser.id
 	const filteredData = filterObject(
 		dataToFilter.byId,

@@ -10,6 +10,7 @@ import TableHeader from '../../components/table-header/table-header.component'
 class ItemDetail extends React.Component {
 	render() {
 		const singleItem = this.props.singleItemById
+		console.log(singleItem.id)
 		// Using slice of the total state (single item)
 		return (
 			<div>
@@ -57,14 +58,15 @@ class ItemDetail extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
 	let id = ownProps.match.params.id
-	// need to get id of SingleItem
+	console.log(state.itms.items.byId[id])
 	return {
-		singleItemById: state.itms.items.find(item => item.id === id)
+		singleItemById: state.itms.items.byId[id]
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
+		// GAl cia nebereikia, nes yra items-list toks pat toggle ir perduodamas kaip propsas?
 		enableDisable: id =>
 			dispatch({ type: ItemActionTypes.TOGGLE_ITEM_ACTIVE, payload: id }),
 		deleteItemById: id => {

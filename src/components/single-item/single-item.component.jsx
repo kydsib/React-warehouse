@@ -63,25 +63,6 @@ class SingleItem extends React.Component {
 
 				{/* deciding if input fields needs to be shown in current page */}
 
-				{this.props.price === undefined ? null : (
-					<td>
-						<Input
-							onChange={this.updateValue}
-							id={this.props.id}
-							value={
-								this.price === undefined
-									? singleItem.price
-									: this.price
-							}
-							name="price"
-							onBlur={() => {
-								this.props.updateInputValue(this.state)
-								this.props.updatePriceHistory(this.state)
-							}}
-						/>
-					</td>
-				)}
-
 				{this.props.quantity === undefined ? null : (
 					<td>
 						<Input
@@ -96,6 +77,25 @@ class SingleItem extends React.Component {
 							onBlur={() => {
 								this.props.updateInputValue(this.state)
 								this.props.updateQuantityHistory(this.state)
+							}}
+						/>
+					</td>
+				)}
+
+				{this.props.price === undefined ? null : (
+					<td>
+						<Input
+							onChange={this.updateValue}
+							id={this.props.id}
+							value={
+								this.price === undefined
+									? singleItem.price
+									: this.price
+							}
+							name="price"
+							onBlur={() => {
+								this.props.updateInputValue(this.state)
+								this.props.updatePriceHistory(this.state)
 							}}
 						/>
 					</td>
