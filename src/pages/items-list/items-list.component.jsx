@@ -7,15 +7,13 @@ import SingleItem from '../../components/single-item/single-item.component'
 import TableHeader from '../../components/table-header/table-header.component'
 import { selectItemsToDisplay } from '../../redux/item/item.selectors'
 
-const ListPage = ({ itemsToList }) => {
-	// Make a functional component? Or I'll need a sate here?
-
+const ListPage = ({ itemsToList, enableDisable, deleteItemById }) => {
 	return (
 		<div className="list-page">
 			<table>
 				<TableHeader />
 				<tbody>
-					{itemsToList.map(item => (
+					{itemsToList.finalDataArray.map(item => (
 						<SingleItem
 							className="single-item"
 							key={item.id}
@@ -26,10 +24,8 @@ const ListPage = ({ itemsToList }) => {
 							weight={item.weight}
 							color={item.color}
 							active={item.active}
-							onClick={() => this.props.enableDisable(item.id)}
-							deleteItem={() =>
-								this.props.deleteItemById(item.id)
-							}
+							onClick={() => enableDisable(item.id)}
+							deleteItem={() => deleteItemById(item.id)}
 						/>
 					))}
 				</tbody>
@@ -39,10 +35,8 @@ const ListPage = ({ itemsToList }) => {
 }
 
 const mapStateToProps = state => {
-	// gaunu object itemsToShow: {k5o2375i: {…}}
-	console.log(Object.values(selectItemsToDisplay(state)))
 	return {
-		itemsToList: Object.values(selectItemsToDisplay(state))
+		itemsToList: selectItemsToDisplay(state)
 	}
 }
 

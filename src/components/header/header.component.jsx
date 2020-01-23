@@ -15,10 +15,15 @@ const Header = ({ currentUser }) => (
 				NEW
 			</NavLink>
 			{currentUser ? (
-				<div className="option" onClick={() => auth.signOut()}>
+				<NavLink
+					className="option"
+					onClick={() => auth.signOut()}
+					to="/"
+					exact
+				>
 					{' '}
 					SIGN OUT{' '}
-				</div>
+				</NavLink>
 			) : (
 				<NavLink className="option" to="/signin">
 					{' '}

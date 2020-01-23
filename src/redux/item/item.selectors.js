@@ -14,7 +14,9 @@ export const slectCurrentUser = createSelector(
 	user => user.currentUser
 )
 
+// Filter state to get array of current user items
 export const selectItemsToDisplay = state => {
+	// Should I use createSelector here?
 	const filterObject = (obj, filter, filterValue) =>
 		Object.keys(obj).reduce(
 			(acc, val) =>
@@ -34,12 +36,10 @@ export const selectItemsToDisplay = state => {
 		'userId',
 		currentUserId
 	)
-	console.log(filteredData)
-	// this only removes id stil could not map trough as in array
-	const finalData = Object.values(filteredData)
-	console.log(finalData)
+
+	const finalDataArray = Object.values(filteredData)
 
 	return {
-		filteredData
+		finalDataArray
 	}
 }

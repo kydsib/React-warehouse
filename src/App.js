@@ -23,9 +23,6 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { setCurrentUser } from './redux/item/item.actions'
 
 class App extends React.Component {
-	// state = {
-	// 	currentUser: null
-	// }
 	unsubscribeFromAuth = null
 
 	componentDidMount() {

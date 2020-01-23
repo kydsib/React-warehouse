@@ -18,8 +18,6 @@ const INITIAL_STATE = {
 	quantityChanges: []
 }
 
-// Reduceris prie pasikeitusios state
-
 const itemReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case ItemActionTypes.SET_CURRENT_USER:
@@ -40,7 +38,64 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 					// allIds: [...allIds, id]
 				}
 			}
+		case ItemActionTypes.DELETE_ITEM:
+			const idToDelete = action.payload
+			const stateCopy = { ...state.items.byId }
+			delete stateCopy[idToDelete]
+			return {
+				...state,
+				items: {
+					byId: {
+						...stateCopy
+					}
+				}
+			}
+		// WORKING TO THIS POINT //
 
+		case ItemActionTypes.UPDATE_INPUT_VALUE:
+			//geting all the data except of a current item, that is being recieved
+			const itemToUpdate = state.items.filter(
+				item => item.id !== action.payload.id
+			)
+
+			const updatedState = itemToUpdate.concat(action.payload)
+			return {
+				...state,
+				items: updatedState
+			}
+		case ItemActionTypes.UPDATE_QUANTITY_HISTORY:
+			// 			// get the array of items by same id
+			const qtyData = state.quantityChanges.filter(
+				item => item.id === action.payload.id
+			)
+			const restOfItems = state.quantityChanges.filter(
+				item => item.id !== action.payload.id
+			)
+			// remove first item from arr if lenght >= 5
+			const firstValueRemoved =
+				qtyData.length >= 5
+					? qtyData.splice(0, 1).concat(action.payload)
+					: qtyData.concat(action.payload)
+			return {
+				...state,
+				quantityChanges: restOfItems.concat(firstValueRemoved)
+			}
+		case ItemActionTypes.UPDATE_PRICE_HISTORY:
+			const priceData = state.priceChanges.filter(
+				item => item.id === action.payload.id
+			)
+			const otherItems = state.priceChanges.filter(
+				item => item.id !== action.payload.id
+			)
+			const newestValues =
+				priceData.length >= 5
+					? priceData.splice(0, 1).concat(action.payload)
+					: priceData.concat(action.payload)
+
+			return {
+				...state,
+				priceChanges: otherItems.concat(newestValues)
+			}
 		default:
 			return state
 	}
