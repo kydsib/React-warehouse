@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 // import Item from './../../components/item/item.component'
-import { editItem } from '../../redux/item/item.actions'
+import { updateValue } from '../../redux/item/item.actions'
 import FormInput from './../../components/form-input/form-input.component'
 import CustomButton from './../../components/custom-button/custom-button.component'
 import './edit-page.styles.scss'
@@ -98,7 +98,7 @@ class EditPage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
 	// geting id and finding item to edit
 	const id = ownProps.match.params.id
-	const currentItem = state.itms.items.find(item => item.id === id)
+	const currentItem = state.itms.items.byId[id]
 	return {
 		// item data from redux state
 		id: currentItem.id,
@@ -114,7 +114,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-	updateItemValues: values => dispatch(editItem(values))
+	updateItemValues: values => dispatch(updateValue(values))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPage)

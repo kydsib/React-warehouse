@@ -5,14 +5,15 @@ import { toggleItemActive, deleteItem } from '../../redux/item/item.actions'
 import TableHeader from '../../components/table-header/table-header.component'
 import './items-list.styles.scss'
 import SingleItem from '../../components/single-item/single-item.component'
+import { selectItemsToDisplay } from '../../redux/item/item.selectors'
 
-const ListPage = ({ itemsFromStore, enableDisable, deleteItemById }) => {
+const ListPage = ({ itemsToList, enableDisable, deleteItemById }) => {
 	return (
 		<div className="list-page">
 			<table>
 				<TableHeader />
 				<tbody>
-					{itemsFromStore.map(item => (
+					{itemsToList.finalDataArray.map(item => (
 						<SingleItem
 							className="single-item"
 							key={item.id}
@@ -35,8 +36,7 @@ const ListPage = ({ itemsFromStore, enableDisable, deleteItemById }) => {
 
 const mapStateToProps = state => {
 	return {
-		itemsFromStore: state.itms.items
-		// state.itms.items - because root reducer (combined reducers)
+		itemsToList: selectItemsToDisplay(state)
 	}
 }
 

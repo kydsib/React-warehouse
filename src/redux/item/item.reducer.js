@@ -1,58 +1,77 @@
 import ItemActionTypes from './item.types'
 
-// Pasiskaityti - https://redux.js.org/recipes/structuring-reducers/normalizing-state-shape/
-
 const INITIAL_STATE = {
-	items: [],
+	currentUser: null,
+	items: {},
 	priceChanges: [],
 	quantityChanges: []
 }
 
 const itemReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case ItemActionTypes.TOGGLE_ITEM_ACTIVE:
-			const toggle = state.items.map(item =>
-				item.id === action.payload
-					? { ...item, active: !item.active }
-					: item
-			)
+		case ItemActionTypes.SET_CURRENT_USER:
 			return {
 				...state,
-				items: toggle
+				currentUser: action.payload
 			}
 		case ItemActionTypes.ADD_NEW_ITEM:
+			const id = action.payload.id
+			const userId = state.currentUser.id
 			return {
 				...state,
-				items: state.items.concat(action.payload)
+				items: {
+					byId: {
+						...state.items.byId,
+						[id]: { ...action.payload, userId }
+					}
+					// allIds: [...allIds, id]
+				}
+			}
+		case ItemActionTypes.TOGGLE_ITEM_ACTIVE:
+			const userToToggle = state.items.byId[action.payload]
+			const idToToggle = action.payload
+			const currentValue = userToToggle.active
+			const nextValue = { active: !currentValue }
+			const toggleActive = { ...userToToggle, ...nextValue }
+			return {
+				...state,
+				items: {
+					byId: {
+						...state.items.byId,
+						[idToToggle]: { ...toggleActive }
+					}
+				}
 			}
 		case ItemActionTypes.DELETE_ITEM:
-			const itemsToLeave = state.items.filter(
-				item => item.id !== action.payload
-			)
-			const qtysToLeave = state.quantityChanges.filter(
-				item => item.id !== action.payload
-			)
-			const pricesToLeave = state.priceChanges.filter(
-				item => item.id !== action.payload
-			)
+			const idToDelete = action.payload
+			const stateCopy = { ...state.items.byId }
+			delete stateCopy[idToDelete]
 			return {
 				...state,
-				items: itemsToLeave,
-				priceChanges: pricesToLeave,
-				quantityChanges: qtysToLeave
+				items: {
+					byId: {
+						...stateCopy
+					}
+				}
 			}
-
 		case ItemActionTypes.UPDATE_INPUT_VALUE:
-			// geting all the data except of a current item, that is being recieved
-			const itemToUpdate = state.items.filter(
-				item => item.id !== action.payload.id
-			)
-
-			const updatedState = itemToUpdate.concat(action.payload)
+			// Should I change all the logic behind this reducer? To mutch data is being sent?
+			const itemToUpdate = state.items.byId[action.payload.id]
+			const itemId = itemToUpdate.id
+			const mergedObject = {
+				...itemToUpdate,
+				...action.payload
+			}
 			return {
 				...state,
-				items: updatedState
+				items: {
+					byId: {
+						...state.items.byId,
+						[itemId]: { ...mergedObject }
+					}
+				}
 			}
+
 		case ItemActionTypes.UPDATE_QUANTITY_HISTORY:
 			// get the array of items by same id
 			const qtyData = state.quantityChanges.filter(
@@ -85,17 +104,6 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				priceChanges: otherItems.concat(newestValues)
-			}
-		case ItemActionTypes.EDIT_ITEM:
-			const oldItems = state.items.filter(
-				item => item.id !== action.payload.id
-			)
-
-			const newValues = oldItems.concat(action.payload)
-
-			return {
-				...state,
-				items: newValues
 			}
 		default:
 			return state

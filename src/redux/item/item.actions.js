@@ -35,7 +35,15 @@ export const updatePrice = item => ({
 	payload: { id: item.id, value: item.price, time: item.time }
 })
 
-export const editItem = values => ({
-	type: ItemActionTypes.EDIT_ITEM,
-	payload: values
+// panasu, kad sito noreikes
+// export const editItem = values => ({
+// 	type: ItemActionTypes.EDIT_ITEM,
+// 	payload: values
+// })
+
+// trying to figure out how to connect user to items
+
+export const setCurrentUser = user => ({
+	type: ItemActionTypes.SET_CURRENT_USER,
+	payload: user
 })

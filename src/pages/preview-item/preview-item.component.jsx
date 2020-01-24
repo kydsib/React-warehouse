@@ -8,7 +8,7 @@ import TableHeader from '../../components/table-header/table-header.component'
 import SingleItem from '../../components/single-item/single-item.component'
 import PreviewNav from '../../components/preview-nav/preview-nav.component'
 
-const ItemDetail = ({ singleItemById, enableDisable, deleteItemById }) => {
+const ItemDetail = ({ enableDisable, deleteItemById, singleItemById }) => {
 	const singleItem = singleItemById
 	// Using slice of the total state (single item)
 	return (
@@ -48,14 +48,14 @@ const ItemDetail = ({ singleItemById, enableDisable, deleteItemById }) => {
 
 const mapStateToProps = (state, ownProps) => {
 	let id = ownProps.match.params.id
-	// need to get id of SingleItem
 	return {
-		singleItemById: state.itms.items.find(item => item.id === id)
+		singleItemById: state.itms.items.byId[id]
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
+		// GAl cia nebereikia, nes yra items-list toks pat toggle ir perduodamas kaip propsas?
 		enableDisable: id => dispatch(toggleItemActive(id)),
 		deleteItemById: id => {
 			dispatch(deleteItem(id))
