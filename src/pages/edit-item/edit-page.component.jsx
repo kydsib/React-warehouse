@@ -95,7 +95,7 @@ class EditPage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
 	// geting id and finding item to edit
 	const id = ownProps.match.params.id
-	const currentItem = state.itms.items.find(item => item.id === id)
+	const currentItem = state.itms.items.byId[id]
 	return {
 		// item data from redux state
 		id: currentItem.id,
@@ -112,7 +112,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
 	updateItemValues: values =>
-		dispatch({ type: ItemActionTypes.UPDATE_ITEM_VALUES, payload: values })
+		dispatch({ type: ItemActionTypes.UPDATE_INPUT_VALUE, payload: values })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPage)

@@ -10,7 +10,6 @@ import TableHeader from '../../components/table-header/table-header.component'
 class ItemDetail extends React.Component {
 	render() {
 		const singleItem = this.props.singleItemById
-		console.log(singleItem.id)
 		// Using slice of the total state (single item)
 		return (
 			<div>
@@ -58,7 +57,6 @@ class ItemDetail extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
 	let id = ownProps.match.params.id
-	console.log(state.itms.items.byId[id])
 	return {
 		singleItemById: state.itms.items.byId[id]
 	}
