@@ -8,12 +8,18 @@ import './header.styles.scss'
 const Header = ({ currentUser }) => (
 	<div className="header">
 		<div className="options">
-			<NavLink className="option" to="/products" exact>
-				Items list
-			</NavLink>
-			<NavLink className="option" to="/products/create" exact>
-				Add Item
-			</NavLink>
+			{currentUser ? (
+				<NavLink className="option" to="/products" exact>
+					Items list
+				</NavLink>
+			) : null}
+
+			{currentUser ? (
+				<NavLink className="option" to="/products/create" exact>
+					Add Item
+				</NavLink>
+			) : null}
+
 			{currentUser ? (
 				<NavLink
 					className="option"

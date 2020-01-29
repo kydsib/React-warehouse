@@ -9,6 +9,7 @@ import {
 
 import './App.css'
 
+import HomePage from './pages/home-page/home-page.component'
 import Header from './components/header/header.component'
 import ListPage from './pages/items-list/items-list.component'
 import NewItemPage from './pages/new-item/new-item.component'
@@ -54,12 +55,13 @@ class App extends React.Component {
 				<div>
 					<Header />
 					<Switch>
+						<Route path="/" exact component={HomePage} />
 						<Route
 							exact
 							path="/signin"
 							render={() =>
 								this.props.currentUser ? (
-									<Redirect to="/products" /> // pakeisti i home page ="/", kai sutvarkysiu saugojima pagal user id
+									<Redirect to="/" />
 								) : (
 									<SignInSignUpPage />
 								)

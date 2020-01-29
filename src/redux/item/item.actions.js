@@ -35,15 +35,13 @@ export const updatePrice = item => ({
 	payload: { id: item.id, value: item.price, time: item.time }
 })
 
-// panasu, kad sito noreikes
-// export const editItem = values => ({
-// 	type: ItemActionTypes.EDIT_ITEM,
-// 	payload: values
-// })
-
-// trying to figure out how to connect user to items
-
 export const setCurrentUser = user => ({
 	type: ItemActionTypes.SET_CURRENT_USER,
 	payload: user
+})
+
+// Might be usles i'll store values in components state
+export const itemsPerPage = value => ({
+	type: ItemActionTypes.SET_ITEMS_PER_PAGE,
+	payload: value
 })

@@ -2,9 +2,14 @@ import ItemActionTypes from './item.types'
 
 const INITIAL_STATE = {
 	currentUser: null,
-	items: {},
+	items: {
+		byId: {},
+		allIds: []
+	},
 	priceChanges: [],
-	quantityChanges: []
+	quantityChanges: [],
+	// Should I keep it here or leavi it at components state? Would I need anyware else?
+	itemsPerPage: 5
 }
 
 const itemReducer = (state = INITIAL_STATE, action) => {
@@ -20,11 +25,13 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				items: {
+					...state.items,
 					byId: {
 						...state.items.byId,
 						[id]: { ...action.payload, userId }
-					}
-					// allIds: [...allIds, id]
+					},
+
+					allIds: state.items.allIds.concat(id)
 				}
 			}
 		case ItemActionTypes.TOGGLE_ITEM_ACTIVE:
@@ -32,13 +39,13 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			const idToToggle = action.payload
 			const currentValue = userToToggle.active
 			const nextValue = { active: !currentValue }
-			const toggleActive = { ...userToToggle, ...nextValue }
+			const toggleCurrentVal = { ...userToToggle, ...nextValue }
 			return {
 				...state,
 				items: {
 					byId: {
 						...state.items.byId,
-						[idToToggle]: { ...toggleActive }
+						[idToToggle]: { ...toggleCurrentVal }
 					}
 				}
 			}
@@ -104,6 +111,11 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				priceChanges: otherItems.concat(newestValues)
+			}
+		case ItemActionTypes.SET_ITEMS_PER_PAGE:
+			return {
+				...state,
+				itemsPerPage: action.payload
 			}
 		default:
 			return state
