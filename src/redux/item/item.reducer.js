@@ -8,8 +8,9 @@ const INITIAL_STATE = {
 	},
 	priceChanges: [],
 	quantityChanges: [],
-	// Should I keep it here or leavi it at components state? Would I need anyware else?
-	itemsPerPage: 5
+	// Should I keep it here or leave it at components state? Would I need anyware else?
+	itemsPerPage: 5,
+	currentPage: 1
 }
 
 const itemReducer = (state = INITIAL_STATE, action) => {
@@ -116,6 +117,11 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				itemsPerPage: action.payload
+			}
+		case ItemActionTypes.SET_CURRENT_PAGE:
+			return {
+				...state,
+				currentPage: action.payload
 			}
 		default:
 			return state

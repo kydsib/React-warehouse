@@ -45,3 +45,8 @@ export const itemsPerPage = value => ({
 	type: ItemActionTypes.SET_ITEMS_PER_PAGE,
 	payload: value
 })
+
+export const currentPage = value => ({
+	type: ItemActionTypes.SET_CURRENT_PAGE,
+	payload: value
+})

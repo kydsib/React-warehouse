@@ -12,12 +12,19 @@ const ListPage = ({
 	itemsToList,
 	enableDisable,
 	deleteItemById,
-	itemsToShow
+	itemsToShow,
+	pageNumber
 }) => {
 	// need loguc for numbers in slice method (starting number - depends on page, items to return - depends on what user selected)
-	const startOfSlice = () => {}
+	// const startOfSlice =
 
-	const endOfSlice = itemsToShow
+	// console.log(startOfSlice)
+	console.log(typeof itemsToShow)
+
+	const numberOfItems = itemsToList.finalDataArray.length
+	const endOfSlice = parseInt(itemsToShow)
+	console.log(`End of ${endOfSlice}`)
+	console.log(itemsToShow)
 	const copyOfItemsInState = [...itemsToList.finalDataArray]
 	return (
 		<div className="list-page">
@@ -41,7 +48,7 @@ const ListPage = ({
 					))}
 				</tbody>
 			</table>
-			<PaginationStrip />
+			<PaginationStrip length={numberOfItems} itemsPerPage={endOfSlice} />
 			{/* Could I work it out without redux (the part where user sets item per page)
 			maybe I could just lift the state up trough method? */}
 		</div>
@@ -49,9 +56,13 @@ const ListPage = ({
 }
 
 const mapStateToProps = state => {
+	console.log(state.itms.currentPage)
+	console.log(state.itms.itemsPerPage)
 	return {
 		itemsToList: selectItemsToDisplay(state),
-		itemsToShow: state.itms.itemsPerPage
+		itemsToShow: state.itms.itemsPerPage,
+		pageNumber: state.itms.currentPage
+		// data for pagination element need to know how many items there is
 	}
 }
 
