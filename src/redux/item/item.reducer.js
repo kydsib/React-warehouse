@@ -10,7 +10,8 @@ const INITIAL_STATE = {
 	quantityChanges: [],
 	// Should I keep it here or leave it at components state? Would I need anyware else?
 	itemsPerPage: 5,
-	currentPage: 1
+	currentPage: 0
+	// Should I set page count here and mapit in pagination component?
 }
 
 const itemReducer = (state = INITIAL_STATE, action) => {

@@ -15,40 +15,46 @@ const ListPage = ({
 	itemsToShow,
 	pageNumber
 }) => {
-	// need loguc for numbers in slice method (starting number - depends on page, items to return - depends on what user selected)
-	// const startOfSlice =
-
-	// console.log(startOfSlice)
-	console.log(typeof itemsToShow)
-
 	const numberOfItems = itemsToList.finalDataArray.length
-	const endOfSlice = parseInt(itemsToShow)
-	console.log(`End of ${endOfSlice}`)
-	console.log(itemsToShow)
+	// Getting the total number of pages
+	const numberOfPages = Math.ceil(numberOfItems / parseInt(itemsToShow))
+	// Making array with number values to loop trough
+	const arrOfPageNumbers = Array.from(Array(numberOfPages).keys())
+	// values for dispayling right items after items per page
+	const startOfSlice = pageNumber * parseInt(itemsToShow)
+	const endOfSlice = parseInt(itemsToShow) + startOfSlice
+
 	const copyOfItemsInState = [...itemsToList.finalDataArray]
+
 	return (
 		<div className="list-page">
 			<table>
 				<TableHeader />
 				<tbody>
-					{copyOfItemsInState.slice(0, endOfSlice).map(item => (
-						<SingleItem
-							className="single-item"
-							key={item.id}
-							id={item.id}
-							name={item.name}
-							ean={item.ean}
-							type={item.type}
-							weight={item.weight}
-							color={item.color}
-							active={item.active}
-							onClick={() => enableDisable(item.id)}
-							deleteItem={() => deleteItemById(item.id)}
-						/>
-					))}
+					{copyOfItemsInState
+						.slice(startOfSlice, endOfSlice)
+						.map(item => (
+							<SingleItem
+								className="single-item"
+								key={item.id}
+								id={item.id}
+								name={item.name}
+								ean={item.ean}
+								type={item.type}
+								weight={item.weight}
+								color={item.color}
+								active={item.active}
+								onClick={() => enableDisable(item.id)}
+								deleteItem={() => deleteItemById(item.id)}
+							/>
+						))}
 				</tbody>
 			</table>
-			<PaginationStrip length={numberOfItems} itemsPerPage={endOfSlice} />
+			<PaginationStrip
+				arr={arrOfPageNumbers}
+				length={numberOfItems}
+				itemsPerPage={endOfSlice}
+			/>
 			{/* Could I work it out without redux (the part where user sets item per page)
 			maybe I could just lift the state up trough method? */}
 		</div>
@@ -56,8 +62,6 @@ const ListPage = ({
 }
 
 const mapStateToProps = state => {
-	console.log(state.itms.currentPage)
-	console.log(state.itms.itemsPerPage)
 	return {
 		itemsToList: selectItemsToDisplay(state),
 		itemsToShow: state.itms.itemsPerPage,
