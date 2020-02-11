@@ -31,6 +31,7 @@ class PaginationStrip extends React.Component {
 					select page
 					{/* TODO
 				4. What would be the logic of showing pages if there are more of those 20 etc.
+				5. Use <select and options> istead of spans?
 				*/}
 					<div>
 						{this.props.arr.map(page => (

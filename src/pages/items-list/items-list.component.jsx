@@ -20,7 +20,7 @@ const ListPage = ({
 	const numberOfPages = Math.ceil(numberOfItems / parseInt(itemsToShow))
 	// Making array with number values to loop trough
 	const arrOfPageNumbers = Array.from(Array(numberOfPages).keys())
-	// values for dispayling right items after items per page
+	// values for dispayling right items after items per page is changed
 	const startOfSlice = pageNumber * parseInt(itemsToShow)
 	const endOfSlice = parseInt(itemsToShow) + startOfSlice
 
