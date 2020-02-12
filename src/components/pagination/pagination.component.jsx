@@ -8,6 +8,7 @@ import Span from './span/span.component'
 import { itemsPerPage, currentPage } from '../../redux/item/item.actions'
 
 class PaginationStrip extends React.Component {
+	// Refactor w/ hookss
 	handleChange = e => {
 		e.preventDefault()
 		let { value } = e.target
