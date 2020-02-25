@@ -1,5 +1,5 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import uniqid from 'uniqid'
 
 import FormInput from '../form-input/form-input.component'
@@ -9,27 +9,24 @@ import { addItem } from '../../redux/item/item.actions'
 
 import './item.styles.scss'
 
-class Item extends React.Component {
-	constructor(props) {
-		super(props)
+const Item = () => {
+	const [params, setParams] = useState({
+		name: '',
+		ean: '',
+		type: '',
+		weight: '',
+		color: '',
+		quantity: '',
+		price: '',
+		active: '',
+		id: ''
+	})
 
-		this.state = {
-			name: '',
-			ean: '',
-			type: '',
-			weight: '',
-			color: '',
-			quantity: '',
-			price: '',
-			active: '',
-			id: ''
-		}
-	}
-
-	handleSubmit = e => {
+	const handleSubmit = e => {
 		e.preventDefault()
 
-		this.setState({
+		setParams({
+			...params,
 			name: '',
 			ean: '',
 			type: '',
@@ -42,92 +39,90 @@ class Item extends React.Component {
 		})
 	}
 
-	handleChange = e => {
+	const handleChange = e => {
+		console.log(params)
 		e.preventDefault()
 		const { value, name } = e.target
 
-		this.setState({ [name]: value, id: uniqid(), active: true })
+		setParams({
+			...params,
+			[name]: value,
+			id: uniqid(),
+			active: true
+		})
 	}
 
-	render() {
-		return (
-			<div className="item-box">
-				<form onSubmit={this.handleSubmit}>
-					<FormInput
-						name="name"
-						type="text"
-						value={this.state.name}
-						handleChange={this.handleChange}
-						label="name"
-						required
-					/>
-					<FormInput
-						name="ean"
-						type="number"
-						value={this.state.ean}
-						handleChange={this.handleChange}
-						label="ean"
-						required
-					/>
-					<FormInput
-						name="type"
-						type="text"
-						value={this.state.type}
-						handleChange={this.handleChange}
-						label="type"
-						required
-					/>
-					<FormInput
-						name="weight"
-						type="number"
-						value={this.state.weight}
-						handleChange={this.handleChange}
-						label="weight"
-						required
-					/>
-					<FormInput
-						name="color"
-						type="text"
-						value={this.state.color}
-						handleChange={this.handleChange}
-						label="color"
-						required
-					/>
-					<FormInput
-						name="quantity"
-						type="number"
-						value={this.state.quantity}
-						handleChange={this.handleChange}
-						label="quantity"
-						required
-					/>
-					<FormInput
-						name="price"
-						type="number"
-						value={this.state.price}
-						handleChange={this.handleChange}
-						label="price"
-						required
-					/>
+	const dispatch = useDispatch()
 
-					<CustomButton
-						type="submit"
-						onClick={() => this.props.onAddItem(this.state)}
-					>
-						Submit
-					</CustomButton>
-				</form>
-			</div>
-		)
-	}
+	return (
+		<div className="item-box">
+			<form onSubmit={handleSubmit}>
+				<FormInput
+					name="name"
+					type="text"
+					value={params.name}
+					handleChange={handleChange}
+					label="name"
+					required
+				/>
+				<FormInput
+					name="ean"
+					type="number"
+					value={params.ean}
+					handleChange={handleChange}
+					label="ean"
+					required
+				/>
+				<FormInput
+					name="type"
+					type="text"
+					value={params.type}
+					handleChange={handleChange}
+					label="type"
+					required
+				/>
+				<FormInput
+					name="weight"
+					type="number"
+					value={params.weight}
+					handleChange={handleChange}
+					label="weight"
+					required
+				/>
+				<FormInput
+					name="color"
+					type="text"
+					value={params.color}
+					handleChange={handleChange}
+					label="color"
+					required
+				/>
+				<FormInput
+					name="quantity"
+					type="number"
+					value={params.quantity}
+					handleChange={handleChange}
+					label="quantity"
+					required
+				/>
+				<FormInput
+					name="price"
+					type="number"
+					value={params.price}
+					handleChange={handleChange}
+					label="price"
+					required
+				/>
+
+				<CustomButton
+					type="submit"
+					onClick={() => dispatch(addItem(params))}
+				>
+					Submit
+				</CustomButton>
+			</form>
+		</div>
+	)
 }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		onAddItem: item => {
-			dispatch(addItem(item))
-		}
-	}
-}
-
-export default connect(null, mapDispatchToProps)(Item)
+export default Item

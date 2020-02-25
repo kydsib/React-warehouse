@@ -23,6 +23,7 @@ const itemReducer = (state = INITIAL_STATE, action) => {
 			}
 		case ItemActionTypes.ADD_NEW_ITEM:
 			const id = action.payload.id
+			console.log(id)
 			const userId = state.currentUser.id
 			return {
 				...state,

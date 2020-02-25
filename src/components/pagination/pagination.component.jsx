@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import './pagination.styles.scss'
 
@@ -7,12 +7,14 @@ import Span from './span/span.component'
 
 import { itemsPerPage, currentPage } from '../../redux/item/item.actions'
 
-const PaginationStrip = ({ setItemsPerPage, setCurrentPage, arr }) => {
+const PaginationStrip = ({ arr }) => {
 	const handleChange = e => {
 		e.preventDefault()
 		let { value } = e.target
-		setItemsPerPage(value)
+		dispatch(itemsPerPage(value))
 	}
+
+	const dispatch = useDispatch()
 
 	return (
 		<div className="container">
@@ -35,7 +37,7 @@ const PaginationStrip = ({ setItemsPerPage, setCurrentPage, arr }) => {
 				<div>
 					{arr.map(page => (
 						<Span
-							onClick={() => setCurrentPage(page)}
+							onClick={() => dispatch(currentPage(page))}
 							number={page + 1} // turiu perduoti arr?
 							key={page}
 							id={page}
@@ -48,11 +50,4 @@ const PaginationStrip = ({ setItemsPerPage, setCurrentPage, arr }) => {
 	)
 }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		setItemsPerPage: value => dispatch(itemsPerPage(value)),
-		setCurrentPage: value => dispatch(currentPage(value))
-	}
-}
-
-export default connect(null, mapDispatchToProps)(PaginationStrip)
+export default PaginationStrip
