@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -7,7 +7,14 @@ import HighchartsReact from 'highcharts-react-official'
 import PreviewNav from '../../../components/preview-nav/preview-nav.component'
 import './quantity-history.styles.scss'
 
-const QuantityHistory = ({ match, time, quantity }) => {
+const QuantityHistory = ({ match }) => {
+	const id = match.params.id
+	const items = useSelector(state =>
+		state.itms.quantityChanges.filter(item => item.id === id)
+	)
+	const quantity = items.map(item => Number(item.value))
+	const time = items.map(item => item.time)
+
 	const Options = {
 		// Highcharts object for data display
 		chart: {
@@ -45,19 +52,4 @@ const QuantityHistory = ({ match, time, quantity }) => {
 	)
 }
 
-const mapStateToProps = (state, ownProps) => {
-	// getting id of specific item
-	const id = ownProps.match.params.id
-	// geting all the data of changes by item id
-	const items = state.itms.quantityChanges.filter(item => item.id === id)
-
-	const quantities = items.map(item => Number(item.value))
-	const times = items.map(item => item.time)
-	return {
-		id: id,
-		quantity: quantities,
-		time: times
-	}
-}
-
-export default connect(mapStateToProps)(QuantityHistory)
+export default QuantityHistory

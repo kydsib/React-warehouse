@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { toggleItemActive, deleteItem } from '../../redux/item/item.actions'
 import TableHeader from '../../components/table-header/table-header.component'
@@ -8,13 +8,11 @@ import SingleItem from '../../components/single-item/single-item.component'
 import { selectItemsToDisplay } from '../../redux/item/item.selectors'
 import PaginationStrip from '../../components/pagination/pagination.component'
 
-const ListPage = ({
-	itemsToList,
-	enableDisable,
-	deleteItemById,
-	itemsToShow,
-	pageNumber
-}) => {
+const ListPage = () => {
+	const itemsToList = useSelector(state => selectItemsToDisplay(state))
+	const itemsToShow = useSelector(state => state.itms.itemsPerPage)
+	const pageNumber = useSelector(state => state.itms.currentPage)
+
 	const numberOfItems = itemsToList.finalDataArray.length
 	// Getting the total number of pages
 	const numberOfPages = Math.ceil(numberOfItems / parseInt(itemsToShow))
@@ -25,6 +23,8 @@ const ListPage = ({
 	const endOfSlice = parseInt(itemsToShow) + startOfSlice
 
 	const copyOfItemsInState = [...itemsToList.finalDataArray]
+
+	const dispatch = useDispatch()
 
 	return (
 		<div className="list-page">
@@ -44,8 +44,10 @@ const ListPage = ({
 								weight={item.weight}
 								color={item.color}
 								active={item.active}
-								onClick={() => enableDisable(item.id)}
-								deleteItem={() => deleteItemById(item.id)}
+								onClick={() =>
+									dispatch(toggleItemActive(item.id))
+								}
+								deleteItem={() => dispatch(deleteItem(item.id))}
 							/>
 						))}
 				</tbody>
@@ -61,22 +63,4 @@ const ListPage = ({
 	)
 }
 
-const mapStateToProps = state => {
-	return {
-		itemsToList: selectItemsToDisplay(state),
-		itemsToShow: state.itms.itemsPerPage,
-		pageNumber: state.itms.currentPage
-		// data for pagination element need to know how many items there is
-	}
-}
-
-const mapDispatchToProps = dispatch => {
-	return {
-		enableDisable: id => dispatch(toggleItemActive(id)),
-		deleteItemById: id => {
-			dispatch(deleteItem(id))
-		}
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListPage)
+export default ListPage

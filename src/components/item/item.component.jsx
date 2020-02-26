@@ -40,7 +40,6 @@ const Item = () => {
 	}
 
 	const handleChange = e => {
-		console.log(params)
 		e.preventDefault()
 		const { value, name } = e.target
 
