@@ -19,6 +19,7 @@ const SignUp = () => {
 		this.setState({ [name]: value })
 	}
 
+	// Need to useEffect here? Bug with sign in w/ password might be here
 	const handleSubmit = async event => {
 		event.preventDefault()
 		const { displayName, email, password, confirmPassword } = params
